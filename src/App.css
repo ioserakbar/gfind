@@ -1,38 +1,305 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg,#ff8a00,#da1b60);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg,#db7602,#aa164c);
+}
+
+.navbar {
+  height: 60px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background:linear-gradient(to right,#ff8a00,#da1b60);
+  overflow: hidden;
+}
+
+.menu-bars {
+  font-size: 2rem;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.menu-bars.mainMenu div svg {
+  padding: 6px 10px 6px 10px;
+  border-radius: 50%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.menu-bars.mainMenu div svg:hover {
+  cursor: pointer;
+  background: #14224d63;
+  transition: .2s;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.nav-menu {
+  background: linear-gradient(45deg,#ff8a00,#da1b60);
+  width: 250px;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  position: fixed;
+  top: 0;
+  left: -100%;
+  transition: 850ms;
+  z-index: 3;
+}
+
+.nav-menu.active {
+  left: 0;
+  transition: 350ms;
+}
+
+.nav-sidetext {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 0px 8px 16px;
+  list-style: none;
+  height: 60px;
+}
+
+.nav-sidetext a {
+  text-decoration: none;
+  color: #f5f5f5;
+  font-size: 18px;
+  width: 95%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 4px;
+}
+
+.nav-sidetext a:hover {
+  background-color: #1a83ff;
+}
+
+.nav-menu-items {
+  width: 100%;
+}
+
+.navbar-toggle {
+  background-color: none;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.nav-sidetext span {
+  margin-left: 16px;
+}
+
+.nav-title {
+  float: left;
+  text-align: center;
+  font-weight: 800;
   color: white;
+  font-size: 30px;
 }
 
-.App-link {
-  color: #61dafb;
+.nav-text {
+  width: 170px !important;
+  text-align: right;
+  padding: 0;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.publication {
+  outline: none !important;
+  padding: 0px 15px 0px 15px;
+  margin: 20px 0px 20px 0px;
+}
+
+.publication .publication-header-row .user-img img {
+  border-radius: 50%;
+  padding: 2px;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #05c9cf 0%, hsl(46, 100%, 62%) 50%, hsl(328, 38%, 37%) 100%);
+}
+
+.publication .publication-header-row .user-img {
+  margin: 0px 10px 0px 10px;
+  padding: 0;
+}
+
+.publication .publication-header-row .user-name {
+  margin: 0px 0px 0px 5px;
+  text-align: center;
+}
+
+.publication .publication-header-row .user-name label {
+  border-top: 2px solid blueviolet;
+  font-weight: 600;
+  font-size: x-large;
+  margin: 0px;
+}
+
+.publication .publication-header-row .user-name small {
+  color: #bdbdbd;
+  margin: 0px;
+}
+
+.publication .publication-header-row .publication-date {
+  text-align: right;
+}
+
+.publication .publication-header-row .publication-date label {
+  color: #bdbdbd;
+  font-size: 11px;
+}
+
+.publication .publication-header {
+  border-bottom: 3px solid blueviolet !important;
+  margin: 0px 20px 10px 20px;
+  background-color: transparent !important;
+}
+
+.publication .publication-body .publication-multimedia img {
+  width: 300px;
+  height: 300px;
+  border-radius: 10px !important;
+  box-shadow: 0px 5px 10px black;
+
+}
+
+.publication .publication-body .publication-multimedia {
+  padding: 0;
+}
+
+.publication .publication-body .publication-description-image {
+  margin-right: 0;
+  height: 300px;
+  overflow-y: scroll;
+}
+
+
+.publication .publication-body {
+  height: 350px;
+
+}
+
+.publication .publication-footer {
+  position: relative;
+  border-top: 1px solid #bdbdbd;
+  background: transparent !important;
+  padding: 2px;
+  font-size: 20px;
+  margin-bottom: 0;
+  height: 50px;
+  align-items: center;
+}
+
+.publication .publication-footer-row {
+  background-color: transparent;
+  margin: 0 !important;
+}
+
+.publication .publication-footer-input {
+  position: relative;
+  background: transparent !important;
+
+}
+
+.publication .publication-footer-input input {
+  position: absolute;
+  background-color: transparent;
+  width: 95%;
+  height: 100%;
+  outline: none;
+  border: none;
+}
+
+.publication .publication-footer .publication-footer-sendbtns {
+  padding: 0;
+  height: 50px;
+  width: 95px;
+  padding-right: 0px;
+  background-color: transparent;
+  margin: 0px 0px 0px 0px;
+}
+
+.publication .publication-footer .publication-footer-sendbtns button {
+  background-color: transparent;
+  padding: 0;
+  font-weight: 700;
+  border: 0px;
+  color: black;
+  font-size: 20px;
+  margin-right: 15px;
+  border-radius: 0px !important;
+}
+
+.publication .publication-footer .publication-footer-sendbtns button:focus-within {
+  box-shadow: none;
+  color: green;
+  transition: 1s;
+}
+
+.publication .publication-footer .publication-footer-sendbtns svg {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  -ms-transform: translateY(20%);
+  transform: translateY(20%);
+  color: black;
+  font-size: 30px;
+}
+
+.publication .publication-footer .publication-footer-likes {
+  background-color: transparent;
+  text-align: right;
+  padding: 0;
+  margin: 0;
+  bottom: 0;
+  -ms-transform: translateY(40%);
+  transform: translateX(40%);
+}
+
+.publication .publication-footer .publication-footer-likes label {
+  margin: 0px 5px 0px 5px;
+  font-weight: 400;
+  -ms-transform: translateY(20%);
+  transform: translateY(20%);
+}
+
+.publication .publication-footer .publication-footer-likes label svg {
+  margin: 0px 5px 0px 5px
+}
+
+.publication .publication-footer .publication-footer-sendbtns svg:hover,
+.publication .publication-footer .publication-footer-sendbtns button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: .1s;
+}
+
+.publication .publication-footer .publication-footer-likes svg:hover {
+  cursor: pointer;
+  transform: scale(1.5);
+  transition: .1s;
 }
