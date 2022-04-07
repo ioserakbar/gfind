@@ -1,6 +1,6 @@
 import React from 'react';
 
-class MessagerPages extends React.Component {
+export class Footer extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -9,7 +9,7 @@ class MessagerPages extends React.Component {
   }
 
   render() {
-    return <p>MESSAGES TODO</p>;
+    return <p>{this.state.someKey}</p>;
   }
 
   componentDidMount() {
@@ -19,4 +19,3 @@ class MessagerPages extends React.Component {
   }
 }
 
-export default MessagerPages;

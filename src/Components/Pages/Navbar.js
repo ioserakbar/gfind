@@ -1,20 +1,18 @@
-import { faBars, faInfo, faInfoCircle, faMagnifyingGlassChart, faPlus, faTimesCircle, faUser, faX } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faInfoCircle, faMagnifyingGlassChart, faUser, faX } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SideBarMain } from './SideBarMain';
 import { Container, Row, Col, Label } from 'reactstrap';
 import '../../App.css'
-const USERREGISTERED = 'userRegistered';
-const USERNOTREGISTERED = 'userNotRegistered';
 
 
 
 
-function Navbar() {
+export function Navbar() {
 
   const [sidebar, setSidebar] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(true);
   const showSidebar = () => setSidebar(!sidebar);
   const registerUser = () => setIsRegistered(!isRegistered);
 
@@ -32,40 +30,51 @@ function Navbar() {
               </Col>
               <Col md={7}>
                 <Container className='nav-title'>
-                  <Label> <FontAwesomeIcon icon={faMagnifyingGlassChart} /> G Find</Label>
+                  <Link to={'/'} >
+                    <Label> <FontAwesomeIcon icon={faMagnifyingGlassChart} /> G Find</Label>
+                  </Link>
                 </Container>
               </Col>
               <Col md={2} className="nav-text-col">
                 <Container className='nav-text' >
-                  <Label ><FontAwesomeIcon icon={faUser} />Perfil</Label>
+                  <Link to={'/Profile'}>
+                    <Label ><FontAwesomeIcon icon={faUser} />Perfil</Label>
+                  </Link>
                 </Container>
               </Col>
               <Col md={2} className="nav-text-col">
                 <Container className='nav-text' >
-                  <Label onClick={registerUser}>Cerrar sesion</Label>
+                  <Link to={'/'} >
+                    <Label onClick={registerUser}>Cerrar sesion</Label>
+                  </Link>
                 </Container>
               </Col>
             </>
 
           ) : (
             <>
-              
+
               <Col md={6}>
                 <Container className='nav-title'>
-                  <Label> <FontAwesomeIcon icon={faMagnifyingGlassChart} /> G Find</Label>
+                  <Link to={'/'} >
+                    <Label> <FontAwesomeIcon icon={faMagnifyingGlassChart} /> G Find</Label>
+                  </Link>
                 </Container>
               </Col>
               <Col md={2} className="nav-text-col">
-                <Label className='nav-text' ><FontAwesomeIcon icon={faInfoCircle} /> Sobre nosotros</Label>
-
+                <Link to={'/AboutUs'} >
+                  <Label className='nav-text' ><FontAwesomeIcon icon={faInfoCircle} /> Sobre nosotros</Label>
+                </Link>
               </Col>
               <Col md={2} className="nav-text-col">
-                <Label className='nav-text' onClick={registerUser} ><FontAwesomeIcon icon={faUser}  /> Iniciar sesion</Label>
-
+                <Link to={'/Session'} >
+                  <Label className='nav-text' onClick={registerUser} ><FontAwesomeIcon icon={faUser} /> Iniciar sesion</Label>
+                </Link>
               </Col>
               <Col md={2} className="nav-text-col">
-                <Label className='nav-text'><FontAwesomeIcon icon={faUser} />Crear cuenta</Label>
-
+                <Link to={'/Session'} >
+                  <Label className='nav-text'><FontAwesomeIcon icon={faUser} />Crear cuenta</Label>
+                </Link>
               </Col>
             </>
           )
@@ -88,7 +97,7 @@ function Navbar() {
                   <span>{item.title}</span>
                 </Link>
               </li>
-            )
+            );
           })}
         </ul>
       </nav>
@@ -96,8 +105,6 @@ function Navbar() {
   );
 }
 
-
-export default Navbar;
 
 /*export class Navbar extends React.Component {
     constructor() {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-class AboutUsPage extends React.Component {
+export class AboutUsPage extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -18,5 +18,3 @@ class AboutUsPage extends React.Component {
     });
   }
 }
-
-export default AboutUsPage;

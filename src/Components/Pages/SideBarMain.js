@@ -13,7 +13,7 @@ export const SideBarMain = [
   },
   {
     title: 'Perfil',
-    path: '/Perfil',
+    path: '/Profile',
     icon: <FontAwesomeIcon icon={faUser} />,
     cName: 'nav-sidetext'
   },
@@ -25,7 +25,7 @@ export const SideBarMain = [
   },
   {
     title: 'Mensajes',
-    path: '/Chatrooms',
+    path: '/Chat',
     icon: <FontAwesomeIcon icon={faMessage} />,
     cName: 'nav-sidetext'
   },

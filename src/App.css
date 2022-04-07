@@ -20,11 +20,11 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg,#ff8a00,#da1b60);
+  background: linear-gradient(45deg, #ff8a00, #da1b60);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(45deg,#db7602,#aa164c);
+  background: linear-gradient(45deg, #db7602, #aa164c);
 }
 
 .navbar {
@@ -32,7 +32,7 @@ body {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background:linear-gradient(to right,#ff8a00,#da1b60);
+  background: linear-gradient(to right, #ff8a00, #da1b60);
   overflow: hidden;
 }
 
@@ -53,7 +53,7 @@ body {
 }
 
 .nav-menu {
-  background: linear-gradient(45deg,#ff8a00,#da1b60);
+  background: linear-gradient(45deg, #ff8a00, #da1b60);
   width: 250px;
   height: 100vh;
   display: flex;
@@ -77,6 +77,18 @@ body {
   padding: 8px 0px 8px 16px;
   list-style: none;
   height: 60px;
+}
+
+.nav-title a,
+.nav-text a {
+  color: #f5f5f5;
+}
+
+.nav-title a:hover,
+.nav-text a:hover {
+  cursor: pointer !important;
+  text-decoration: none;
+  color: #f5f5f5;
 }
 
 .nav-sidetext a {
@@ -193,14 +205,8 @@ body {
 
 .publication .publication-body .publication-description-image {
   margin-right: 0;
-  height: 300px;
+  max-height: 300px;
   overflow-y: scroll;
-}
-
-
-.publication .publication-body {
-  height: 350px;
-
 }
 
 .publication .publication-footer {
@@ -245,6 +251,7 @@ body {
 
 .publication .publication-footer .publication-footer-sendbtns button {
   background-color: transparent;
+  cursor:pointer;
   padding: 0;
   font-weight: 700;
   border: 0px;
@@ -303,3 +310,157 @@ body {
   transform: scale(1.5);
   transition: .1s;
 }
+
+.publication .publication-header .user-img-placeholder {
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%,rgb(170, 170, 170) 50%,rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  height: 50px;
+  width: 50px;
+  -ms-transform: translateY(10%);
+  transform: translateY(10%);
+  border-radius: 50%;
+  background-size: 200% 100%;
+  animation: anmBg 3s linear 3;
+  animation-iteration-count: infinite;
+}
+@keyframes anmBg{
+  to {
+    background-position: -200% 0; 
+  }
+}
+
+.publication .publication-header .user-name-placeholder {
+  margin: 0px 0px 0px 5px;
+  text-align: center;
+}
+
+.publication .publication-header .user-name-placeholder label {
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%,rgb(170, 170, 170) 50%,rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  border-radius: 20px;
+  width: 200px;
+  height: 20px;
+  background-size: 200% 100%;
+  animation: anmBg 3s linear 3;
+  animation-iteration-count: infinite;
+  -ms-transform: translateY(20%);
+  transform: translateY(20%);
+}
+
+.publication .publication-header .since-placeholder  {
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%,rgb(170, 170, 170) 50%,rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);  border-radius: 20px;
+  width: 100px !important;
+  height: 15px !important;
+  background-size: 200% 100%;
+  animation: anmBg 3s linear 3;
+  animation-iteration-count: infinite;
+}
+
+.publication .publication-header .publication-date-placeholder label{
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%,rgb(170, 170, 170) 50%,rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  width: 100px;
+  height: 10px;
+  border-radius: 20px;
+  background-size: 200% 100%;
+  animation: anmBg 3s linear 3;
+  animation-iteration-count: infinite;
+  -ms-transform: translateX(50%)  !important;
+  transform: translateX(50%) !important;
+}
+
+.publication .publication-body .publication-multimedia-placeholder{
+  padding: 0;
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%,rgb(170, 170, 170) 50%,rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  width: 298px;
+  height: 298px;
+  margin: 0;
+  border-radius: 10px;
+  background-size: 200% 100%;
+  animation: anmBg 3s linear 3;
+  animation-iteration-count: infinite;
+}
+
+.publication .publication-body .publication-description-image-placeholder {
+  margin-right: 0;
+  max-height: 300px;
+  text-align: left;
+  overflow-y: scroll;
+}
+
+.publication .publication-body .publication-description-image-placeholder label{
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%,rgb(170, 170, 170) 50%,rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  border-radius: 10px;
+  background-size: 200% 100%;
+  animation: anmBg 3s linear 3;
+  animation-iteration-count: infinite;
+  height: 25px;
+}
+.publication .publication-body .publication-description-image-placeholder-noImage label{
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%,rgb(170, 170, 170) 50%,rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  border-radius: 10px;
+  background-size: 200% 100%;
+  animation: anmBg 3s linear 3;
+  animation-iteration-count: infinite;
+  width: 580px !important;
+  height: 25px;
+}
+
+.publication .publication-footer .publication-footer-sendbtns-placeholder {
+  color:#bababa;
+  padding: 0;
+  height: 50px;
+  width: 95px;
+  padding-right: 0px;
+  background-color: transparent;
+  margin: 0px 0px 0px 0px;
+}
+
+.publication .publication-footer .publication-footer-sendbtns-placeholder button {
+  background-color: transparent;  
+  padding: 0;
+  cursor:auto;
+  font-weight: 700;
+  border: 0px;
+  color: #bababa;
+  font-size: 20px;
+  margin-right: 15px;
+  border-radius: 0px !important;
+}
+
+.publication .publication-footer .publication-footer-sendbtns-placeholder svg {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  -ms-transform: translateY(20%);
+  transform: translateY(20%);
+  color: #bababa;
+  font-size: 30px;
+}
+
+.publication .publication-footer .publication-footer-sendbtns-placeholder button:focus-within {
+  box-shadow: none;
+}
+
+
+
+.publication .publication-footer .publication-footer-likes-placeholder {
+  background-color: transparent;
+  text-align: right;
+  padding: 0;
+  margin: 0;
+  bottom: 0;
+  -ms-transform: translateY(40%);
+  transform: translateX(40%);
+}
+
+.publication .publication-footer .publication-footer-likes-placeholder label {
+  margin: 0px 5px 0px 5px;
+  font-weight: 400;
+  -ms-transform: translateY(20%);
+  transform: translateY(20%);
+}
+
+.publication .publication-footer .publication-footer-likes-placeholder label svg {
+  margin: 0px 5px 0px 5px;
+  color: #bababa;
+}
+
+

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class ProfilePage extends React.Component {
+export class ChatPage extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -9,7 +9,7 @@ export class ProfilePage extends React.Component {
   }
 
   render() {
-    return <p>PROFILE TODO</p>;
+    return <p>MESSAGES TODO</p>;
   }
 
   componentDidMount() {

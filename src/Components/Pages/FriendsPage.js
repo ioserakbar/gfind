@@ -1,6 +1,6 @@
 import React from 'react';
 
-class FriendsPage extends React.Component {
+export class FriendsPage extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -9,7 +9,7 @@ class FriendsPage extends React.Component {
   }
 
   render() {
-    return <p>{this.state.someKey}FRIENDS PAGE TODO</p>;
+    return <p>FRIENDS PAGE TODO</p>;
   }
 
   componentDidMount() {
@@ -19,4 +19,3 @@ class FriendsPage extends React.Component {
   }
 }
 
-export default FriendsPage;

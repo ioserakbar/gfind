@@ -1,6 +1,6 @@
 import React from 'react';
 
-class StartSessionPage extends React.Component {
+export class StartSessionPage extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -12,11 +12,6 @@ class StartSessionPage extends React.Component {
     return <p>START SESSION AND CREATE ACCOUNT TODO</p>;
   }
 
-  componentDidMount() {
-    this.setState({
-      someKey: 'otherValue'
-    });
-  }
+  
 }
 
-export default StartSessionPage;
