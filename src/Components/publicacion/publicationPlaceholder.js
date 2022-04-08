@@ -21,7 +21,6 @@ export class PublicationPlaceholder extends React.Component {
           size: Math.round((Math.random() * (560 - 500)) + 500)
         }
       };
-    console.log(labels);
     this.state = {
       mode: randomValue,
       labels: labels
@@ -78,7 +77,7 @@ export class PublicationPlaceholder extends React.Component {
         <CardFooter className='publication-footer'>
           <Row className='publication-footer-row'>
             <Col md={6} className="publication-footer-input">
-              <input type="text" placeholder='Añadir comentario' />
+              <input type="text" placeholder='Añadir comentario' disabled/>
             </Col>
             <Col md={3} className="publication-footer-sendbtns-placeholder">
               <Button>Enviar</Button>

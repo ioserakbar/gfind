@@ -9,6 +9,7 @@
 
 body {
   overflow-x: hidden;
+  background-color: #fafafa !important;
 }
 
 ::-webkit-scrollbar {
@@ -53,7 +54,7 @@ body {
 }
 
 .nav-menu {
-  background: linear-gradient(45deg, #ff8a00, #da1b60);
+  background: linear-gradient(-135deg, #ff8a00, #da1b60);
   width: 250px;
   height: 100vh;
   display: flex;
@@ -206,7 +207,7 @@ body {
 .publication .publication-body .publication-description-image {
   margin-right: 0;
   max-height: 300px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .publication .publication-footer {
@@ -251,7 +252,7 @@ body {
 
 .publication .publication-footer .publication-footer-sendbtns button {
   background-color: transparent;
-  cursor:pointer;
+  cursor: pointer;
   padding: 0;
   font-weight: 700;
   border: 0px;
@@ -312,7 +313,7 @@ body {
 }
 
 .publication .publication-header .user-img-placeholder {
-  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%,rgb(170, 170, 170) 50%,rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%, rgb(170, 170, 170) 50%, rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
   height: 50px;
   width: 50px;
   -ms-transform: translateY(10%);
@@ -322,9 +323,10 @@ body {
   animation: anmBg 3s linear 3;
   animation-iteration-count: infinite;
 }
-@keyframes anmBg{
+
+@keyframes anmBg {
   to {
-    background-position: -200% 0; 
+    background-position: -200% 0;
   }
 }
 
@@ -334,7 +336,7 @@ body {
 }
 
 .publication .publication-header .user-name-placeholder label {
-  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%,rgb(170, 170, 170) 50%,rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%, rgb(170, 170, 170) 50%, rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
   border-radius: 20px;
   width: 200px;
   height: 20px;
@@ -345,8 +347,9 @@ body {
   transform: translateY(20%);
 }
 
-.publication .publication-header .since-placeholder  {
-  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%,rgb(170, 170, 170) 50%,rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);  border-radius: 20px;
+.publication .publication-header .since-placeholder {
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%, rgb(170, 170, 170) 50%, rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  border-radius: 20px;
   width: 100px !important;
   height: 15px !important;
   background-size: 200% 100%;
@@ -354,21 +357,21 @@ body {
   animation-iteration-count: infinite;
 }
 
-.publication .publication-header .publication-date-placeholder label{
-  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%,rgb(170, 170, 170) 50%,rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+.publication .publication-header .publication-date-placeholder label {
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%, rgb(170, 170, 170) 50%, rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
   width: 100px;
   height: 10px;
   border-radius: 20px;
   background-size: 200% 100%;
   animation: anmBg 3s linear 3;
   animation-iteration-count: infinite;
-  -ms-transform: translateX(50%)  !important;
+  -ms-transform: translateX(50%) !important;
   transform: translateX(50%) !important;
 }
 
-.publication .publication-body .publication-multimedia-placeholder{
+.publication .publication-body .publication-multimedia-placeholder {
   padding: 0;
-  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%,rgb(170, 170, 170) 50%,rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%, rgb(170, 170, 170) 50%, rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
   width: 298px;
   height: 298px;
   margin: 0;
@@ -382,19 +385,20 @@ body {
   margin-right: 0;
   max-height: 300px;
   text-align: left;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
-.publication .publication-body .publication-description-image-placeholder label{
-  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%,rgb(170, 170, 170) 50%,rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+.publication .publication-body .publication-description-image-placeholder label {
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%, rgb(170, 170, 170) 50%, rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
   border-radius: 10px;
   background-size: 200% 100%;
   animation: anmBg 3s linear 3;
   animation-iteration-count: infinite;
   height: 25px;
 }
-.publication .publication-body .publication-description-image-placeholder-noImage label{
-  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%,rgb(170, 170, 170) 50%,rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+
+.publication .publication-body .publication-description-image-placeholder-noImage label {
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%, rgb(170, 170, 170) 50%, rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
   border-radius: 10px;
   background-size: 200% 100%;
   animation: anmBg 3s linear 3;
@@ -404,7 +408,7 @@ body {
 }
 
 .publication .publication-footer .publication-footer-sendbtns-placeholder {
-  color:#bababa;
+  color: #bababa;
   padding: 0;
   height: 50px;
   width: 95px;
@@ -414,9 +418,9 @@ body {
 }
 
 .publication .publication-footer .publication-footer-sendbtns-placeholder button {
-  background-color: transparent;  
+  background-color: transparent;
   padding: 0;
-  cursor:auto;
+  cursor: auto;
   font-weight: 700;
   border: 0px;
   color: #bababa;
@@ -463,4 +467,257 @@ body {
   color: #bababa;
 }
 
+.home-side-bar {
+  position: fixed;
+  margin-top: 6vh;
+  width: 300px !important;
+  height: 80vh;
+  margin-right: 50% !important;
+  border-right: 3px solid blueviolet;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 
+.home-side-bar .title {
+  font-weight: 600;
+  width: auto;
+  text-align: center;
+  font-size: 30px;
+  margin: auto;
+}
+
+.home-side-bar .friends-actives-info {
+  margin-top: 5px
+}
+
+.bottom-line {
+  text-align: center;
+  height: 2px;
+  width: 250px;
+  margin: auto;
+  border-bottom: 2px solid #cfcfcf;
+}
+
+.home-side-bar .title .bottom-line-title {
+  text-align: center;
+  height: 4px;
+  width: 300px;
+  margin: auto;
+  margin-bottom: 5px;
+  border-bottom: 2px solid #8d8d8d;
+}
+
+.home-side-bar .friends-actives-info .profile-pic-placeholder {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%, rgb(170, 170, 170) 50%, rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  background-size: 200% 100%;
+  animation: anmBg 3s linear 3;
+  animation-iteration-count: infinite;
+}
+
+.home-side-bar .friends-actives-info .profile-info-placeholder .name {
+  margin: 10px 0px 0px 0px;
+  width: 170px;
+  height: 20px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%, rgb(170, 170, 170) 50%, rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  background-size: 200% 100%;
+  animation: anmBg 3s linear 3;
+  animation-iteration-count: infinite;
+}
+
+.home-side-bar .friends-actives-info .profile-info-placeholder .status {
+  margin-top: 5px;
+  width: 100px;
+  height: 10px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%, rgb(170, 170, 170) 50%, rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  background-size: 200% 100%;
+  animation: anmBg 3s linear 3;
+  animation-iteration-count: infinite;
+}
+
+.home-side-bar .friends-actives-info .profile-info-placeholder .action-buttons-placeholder {
+  float: right;
+  -ms-transform: translateX(150%);
+  transform: translateX(150%);
+}
+
+.home-side-bar .friends-actives-info .profile-info-placeholder .action-buttons-placeholder svg {
+  margin: 0px 3px 0px 3px;
+  color: #bababa;
+}
+
+.featured-publication {
+
+  border: 1px solid #bababa;
+  border-radius: 10px;
+
+  margin: 20px 0px 20px 0px;
+}
+
+.home-side-bar .featured .featured-image-placeholder {
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%, rgb(170, 170, 170) 50%, rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  background-size: 200% 100%;
+  animation: anmBg 3s linear 3;
+  animation-iteration-count: infinite;
+  border-radius: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  -ms-transform: translateX(37%);
+  transform: translateX(37%);
+  width: 150px;
+  height: 150px;
+}
+
+.home-side-bar .featured .featured-profile-pic-image-placeholder {
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%, rgb(170, 170, 170) 50%, rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  background-size: 200% 100%;
+  animation: anmBg 3s linear 3;
+  margin: 10px 0px 10px 10px;
+  animation-iteration-count: infinite;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+}
+
+.home-side-bar .featured .featured-name-placeholder .name {
+  background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%, rgb(170, 170, 170) 50%, rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
+  background-size: 200% 100%;
+  animation: anmBg 3s linear 3;
+  margin: 0px 0px 10px 10px;
+  animation-iteration-count: infinite;
+  border-radius: 20px;
+  margin-top: 12px;
+  width: 130px;
+  height: 25px;
+}
+
+.home-side-bar .featured .featured-name-placeholder label svg {
+  position: absolute;
+  margin-top: 12px;
+  font-size: 30px;
+  -ms-transform: translateX(37%) !important;
+  transform: translateX(100%) !important;
+}
+
+.home-side-bar .featured .featured-image img {
+  border-radius: 10%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  -ms-transform: translateX(30%);
+  transform: translateX(30%);
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.home-side-bar .featured .featured-image label {
+  text-align: left;
+  font-size: 13px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  -ms-transform: translateX(30%);
+  transform: translateX(7%);
+  max-width: 230px;
+  max-height: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 16px;
+  /* fallback */
+  max-height: 128px;
+  /* fallback */
+  -webkit-line-clamp: 6;
+  /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.home-side-bar .featured .featured-profile-pic-image img {
+  position: absolute;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
+
+.home-side-bar .featured .featured-name {
+  text-align: right;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.home-side-bar .featured .featured-likes {
+  text-align: right;
+}
+
+.home-side-bar .featured .featured-likes label svg {
+  margin-right: 5px;
+
+}
+
+.home-side-bar .friends-actives-info .profile-pic img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.home-side-bar .friends-actives-info .profile-info {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.home-side-bar .friends-actives-info .profile-info .name {
+  width: 130px;
+  text-align: left;
+  font-size: 15px;
+  margin-bottom: 0px;
+}
+
+.home-side-bar .friends-actives-info .profile-info .status {
+  text-align: right;
+  font-size: 12px;
+}
+
+.home-side-bar .friends-actives-info .profile-info .action-buttons {
+  float: right;
+  -ms-transform: translateX(110%);
+  transform: translateX(110%);
+}
+
+.home-side-bar .friends-actives-info .profile-info .action-buttons svg {
+  cursor: pointer;
+  margin: 0px 6px 0px 6px;
+}
+
+.home-side-bar .friends-actives-info .profile-info .action-buttons svg:hover {
+  transform: scale(1.2);
+  transition: .1;
+}
+
+.search-bar {
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px !important;
+}
+
+.search-bar img {
+  z-index: 4;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.search-bar button {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: black;
+  outline: none;
+  border: 0px;
+  background-color: #c9c9c9;
+  border-radius: 20px;
+  text-align: left;
+  width: 90%;
+  padding: 10px 10px 10px 10px;
+}
