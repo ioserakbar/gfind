@@ -9,7 +9,7 @@ export class Footer extends React.Component {
   }
 
   render() {
-    return <p>{this.state.someKey}</p>;
+    return <p>FOOTER TODO</p>;
   }
 
   componentDidMount() {

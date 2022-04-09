@@ -11,6 +11,7 @@ import { ChatPage } from './Components/Pages/ChatPage';
 import { StartSessionPage } from './Components/Pages/StartSessionPage'
 import { ProfilePage } from './Components/Pages/ProfilePage'
 import { Navbar } from './Components/Pages/Navbar';
+import { Footer } from './Components/Pages/Footer';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route exact path='/Session' element={<StartSessionPage />}></Route>
           <Route exact path='/Profile' element={<ProfilePage />}></Route>
         </Routes>
+        <Footer/>
       </Router>
     </div>
   )

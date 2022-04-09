@@ -1,8 +1,6 @@
 import React from 'react';
-import { Container } from 'reactstrap';
-import Profile from '../Profile/profile';
 
-export class ProfilePage extends React.Component {
+class ProfilePlaceholder extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -11,12 +9,7 @@ export class ProfilePage extends React.Component {
   }
 
   render() {
-    return (
-      <Container>
-        <Profile/>
-      </Container>
-      
-    );
+    return <p>PROFILE PLACEHOLDER TODO</p>;
   }
 
   componentDidMount() {
@@ -26,3 +19,4 @@ export class ProfilePage extends React.Component {
   }
 }
 
+export default ProfilePlaceholder;

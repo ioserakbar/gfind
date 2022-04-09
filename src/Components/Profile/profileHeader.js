@@ -1,8 +1,6 @@
 import React from 'react';
-import { Container } from 'reactstrap';
-import Profile from '../Profile/profile';
 
-export class ProfilePage extends React.Component {
+class ProfileHeader extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -11,12 +9,7 @@ export class ProfilePage extends React.Component {
   }
 
   render() {
-    return (
-      <Container>
-        <Profile/>
-      </Container>
-      
-    );
+    return <p>PROFILE HEADER TODO</p>;
   }
 
   componentDidMount() {
@@ -26,3 +19,4 @@ export class ProfilePage extends React.Component {
   }
 }
 
+export default ProfileHeader;
