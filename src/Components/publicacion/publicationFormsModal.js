@@ -24,40 +24,50 @@ export function PublicationFormsModal() {
     })
 
     function readURL(input) {
-      if (input.files && input.files[0]) {
-        const reader = new FileReader();
+      if (input.files) {
 
-        reader.onload = function (e) {
-          const fileName = input.files[0].name;
-          const mime = fileName.replace(/^.*\./, '');
-
-          multimedia.push({
-            name: fileName,
-            data: e.target.result,
-            mime: mime
-          });
-
-          $('.publication-multimedia').append('<img src="' + e.target.result + '" alt="publicationMultimedia">');
-
-          console.log(multimedia);
-
+        for (let i = 0; i < input.files.length; i++) {
+          if (input.files[i]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+  
+              const fileName = input.files[i].name;
+              const mime = fileName.replace(/^.*\./, '');
+              multimedia.push({
+                name: fileName,
+                data: e.target.result,
+                mime: mime
+              });
+              if (mime === 'jpeg' || mime === 'png' || mime === 'jpg' || mime === 'bmp')
+                $('.publication-multimedia').append('<img src="' + e.target.result + '" alt="publicationMultimedia">');
+              else if (mime === 'mp4' ||  mime === 'avi' )
+                $('.publication-multimedia').append('<video src="' + e.target.result + '"  type="video/mp4" controls />');
+  
+              console.log(multimedia);
+  
+            }
+  
+            reader.readAsDataURL(input.files[i]);
+          }
+          
         }
-        reader.readAsDataURL(input.files[0]);
+
+
+
 
       } else {
-        console.log('nel');
+
+        alert('No se pudo cargar la imagen, por favor intentelo de nuevo.');
+
       }
     }
-    $('#file-input').change(function(){
+    $('#file-input').on('change', function () {
       readURL(this);
     });
 
-
-
-
-
   }, [])
 
+  const vidio = <video src={require('../../Resources/Videos/videopruebaAREMOVER.mp4')} type='video/mp4' controls />;
 
   return (
     <div className='modal-publication-form'>
@@ -70,17 +80,16 @@ export function PublicationFormsModal() {
           <CardBody className='body'>
             <form>
               <div className='content-input'>
-                <textarea id='content' type='text' rows='5' placeholder='¿Que es lo que nos quieres contar?' />
+                <textarea id='content' type='text' placeholder='¿Que es lo que nos quieres contar?' />
               </div>
               <div className='publication-multimedia'>
-                <video src={require('../../Resources/Videos/videopruebaAREMOVER.mp4')} type='video/mp4' controls />
               </div>
               <Label className='bottom-line-modal'></Label>
               <div className="image-upload">
                 <label htmlFor="file-input">
                   <FontAwesomeIcon icon={faFileUpload} />
                 </label>
-                <input id="file-input" type="file" />
+                <input id="file-input" type="file" multiple accept='.jpeg, .jpg, .png, .bmp, .mp4, .avi'/>
                 <input type='submit' className='submit-publication' value='Publicar' />
               </div>
             </form>
