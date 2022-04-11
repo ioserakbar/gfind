@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 import { Publication } from '../Publicacion/publication';
-import {PublicationForms} from '../Publicacion/publicationForms';
+import { PublicationFormsModal } from '../Publicacion/publicationFormsModal';
 import { PublicationPlaceholder } from '../Publicacion/publicationPlaceholder';
 import { SideMenuHome } from '../SideMenuHome/sideMenuHome';
 
@@ -43,9 +43,8 @@ export class HomePage extends React.Component {
                   <Col md={1}>
                     <img src='https://i.imgur.com/aD2V747.jpeg' alt='profilePic' />
                   </Col>
-                  <Col md={1} />
-                  <Col md={10}>
-                    <Button>Crear publicación</Button>
+                  <Col md={11}>
+                    <Button>Crear publicacion</Button>
                   </Col>
                 </Row>
                 <Row>
@@ -56,11 +55,10 @@ export class HomePage extends React.Component {
               </Col>
             ) : (
               <Col md={6} >
-                <Row >
+                <Row className='search-bar'>
                   <Col md={1}>
-                    <img src='https://i.imgur.com/aD2V747.jpeg' alt='profilePic' />
+                    <img  src='https://i.imgur.com/aD2V747.jpeg' alt='profilePic' />
                   </Col>
-                  <Col md={1} />
                   <Col md={10}>
                     <Button className='search-bar add-pub-btn'>Crear publicación</Button>
                   </Col>
@@ -80,7 +78,7 @@ export class HomePage extends React.Component {
             </Col>
           </Row>
         </Container>
-        <PublicationForms/>
+        <PublicationFormsModal />
       </>
     );
   }
