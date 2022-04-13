@@ -1,5 +1,7 @@
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { Button, Col, Container, Row } from 'reactstrap';
+import { Button, Card, CardHeader, Col, Container, Label, Row } from 'reactstrap';
 import { Publication } from '../Publicacion/publication';
 import { PublicationFormsModal } from '../Publicacion/publicationFormsModal';
 import { PublicationPlaceholder } from '../Publicacion/publicationPlaceholder';
@@ -11,7 +13,8 @@ export class HomePage extends React.Component {
     super(props);
     this.state = {
       status: false,
-      publications: []
+      publications: [],
+      modal: false
     };
   }
 
@@ -22,29 +25,41 @@ export class HomePage extends React.Component {
     if (respJson.success) {
       this.setState({
         status: true,
-        publications: respJson.Data
+        publications: respJson.Data,
+        modal: false
       })
     }
     this.forceUpdate();
   }
 
+  openModal = () => {
+    this.setState({
+      modal: true
+    })
+  }
+
+  closeModal = () => {
+    this.setState({
+      modal: false
+    })
+  }
+
   render() {
     return (
       <>
-        <Container >
-
+        <Container>
           <Row className='Publications'>
             <Col md={3} >
               <SideMenuHome />
             </Col>
             {this.state.status ? (
               <Col md={6} >
-                <Row className='search-bar add-pub-btn'>
+                <Row className='search-bar add-pub-btn' >
                   <Col md={1}>
                     <img src='https://i.imgur.com/aD2V747.jpeg' alt='profilePic' />
                   </Col>
                   <Col md={11}>
-                    <Button>Crear publicacion</Button>
+                    <Button onClick={this.openModal} >Crear publicacion</Button>
                   </Col>
                 </Row>
                 <Row>
@@ -57,10 +72,10 @@ export class HomePage extends React.Component {
               <Col md={6} >
                 <Row className='search-bar'>
                   <Col md={1}>
-                    <img  src='https://i.imgur.com/aD2V747.jpeg' alt='profilePic' />
+                    <img src='https://i.imgur.com/aD2V747.jpeg' alt='profilePic' />
                   </Col>
                   <Col md={10}>
-                    <Button className='search-bar add-pub-btn'>Crear publicación</Button>
+                    <Button onClick={this.openModal} className='search-bar add-pub-btn'>Crear publicación</Button>
                   </Col>
                 </Row>
                 <Row>
@@ -78,7 +93,21 @@ export class HomePage extends React.Component {
             </Col>
           </Row>
         </Container>
-        <PublicationFormsModal />
+        {this.state.modal ? (
+          <div className='modal-publication-form'>
+            <Container className='modal-content-publication'>
+              <Card>
+                <CardHeader className='title'>
+                  <Label>Publicar</Label>
+                  <FontAwesomeIcon className='close-publication-modal' icon={faTimesCircle} onClick={this.closeModal} />
+                </CardHeader>
+                <PublicationFormsModal />
+              </Card>
+            </Container>
+          </div>
+        ) : (
+          <></>
+        )}
       </>
     );
   }

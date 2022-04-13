@@ -1,7 +1,5 @@
-import { faFileUpload, faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component } from 'react';
-import { Button, Card, CardBody, CardFooter, CardHeader, Col, Container, Label, Row } from 'reactstrap';
+import {  Card, CardBody, CardFooter, CardHeader, Container} from 'reactstrap';
 import { PublicationDetail } from './publicationDetail';
 import '../../App.css'
 import { PublicationHeader } from './publicationHeader';

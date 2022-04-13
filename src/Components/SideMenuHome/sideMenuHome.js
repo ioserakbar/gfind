@@ -1,7 +1,5 @@
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { Col, Container, Label, Row } from 'reactstrap';
+import { Container, Label, Row } from 'reactstrap';
 import SideMenuHomeFeatured from './sideMenuHomeFeatured';
 import SideMenuHomeFriends from './sideMenuHomeFriends';
 import { SideMenuHomePlaceholder } from './sideMenuHomePlaceholder';
@@ -46,7 +44,6 @@ export class SideMenuHome extends React.Component {
         <SideMenuHomePlaceholder />
 
       )
-
     );
   }
 

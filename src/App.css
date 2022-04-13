@@ -14,8 +14,10 @@ body {
 
 :root {
   --accent-line-color: blueviolet;
+  --darker-accent-line-color: rgb(41, 16, 100);
   --placeholder-background: linear-gradient(90deg, rgb(116, 116, 116) 0%, rgb(116, 116, 116) 10%, rgb(170, 170, 170) 50%, rgb(116, 116, 116) 90%, rgb(116, 116, 116) 100%);
   --nav-color: linear-gradient(-135deg, #ff8a00, #da1b60);
+  --darker-nav-color: linear-gradient(-135deg, #b66100, #941443);
   --profile-border-color: linear-gradient(135deg, #05c9cf 0%, hsl(46, 100%, 62%) 50%, hsl(328, 38%, 37%) 100%);
 }
 
@@ -857,7 +859,7 @@ body {
   transform: scale(1.1);
 }
 
-.modal-publication-form .modal-content-publication .body .publication-multimedia {
+.modal-publication-form .modal-content-publication .body .publication-multimedia-modal {
   max-height: 40vh;
   display: grid;
   align-items: center;
@@ -867,8 +869,8 @@ body {
   overflow: auto;
 }
 
-.modal-publication-form .modal-content-publication .body .publication-multimedia img,
-.modal-publication-form .modal-content-publication .body .publication-multimedia video  {
+.modal-publication-form .modal-content-publication .body .publication-multimedia-modal img,
+.modal-publication-form .modal-content-publication .body .publication-multimedia-modal video {
   max-width: 97%;
   max-height: 97%;
   border-radius: 10px;
@@ -876,10 +878,202 @@ body {
   margin: 5px;
 }
 
-
-.modal-publication-form .modal-content-publication .body .publication-multimedia img:hover,
-.modal-publication-form .modal-content-publication .body .publication-multimedia video:hover {
+/*.modal-publication-form .modal-content-publication .body .publication-multimedia-modal img:hover {
   transition: .5s;
   filter: brightness(40%);
   transform: scale(1.05);
+}*/
+
+.modal-publication-form .modal-content-publication .body .publication-multimedia-modal .delete-multimedia {
+  width: 20px;
+  height: 20px;
+  font-size: 15px;
+  margin-bottom: auto;
+  border: none;
+  background: red;
+  border-radius: 50%;
+  padding: 0px;
+  z-index: 40;
+}
+
+.modal-publication-form .modal-content-publication .body .publication-multimedia-modal .delete-multimedia:hover {
+  background: rgb(80, 7, 7);
+  color: white;
+  transition: .2s;
+}
+
+.session-container {
+  border-radius: 3px;
+  padding: 20px;
+  position: absolute;
+  top: 10vh !important;
+  left: 50% !important;
+  margin-left: -30vw !important;
+  width: 60vw !important;
+  height: auto;
+  border-radius: 20px;
+}
+
+.session-container .title {
+  text-align: center;
+  font-size: 40px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  letter-spacing: 4px;
+}
+
+.vertical-line {
+  position: absolute;
+  top: 50%;
+  margin-top: -15% !important;
+  left: 43%;
+  width: 1px !important;
+  transform: scaleX(.05);
+  height: 75% !important;
+  background-color: rgb(247, 39, 84);
+}
+
+.session-container .create-account-forms input[type=text],
+.session-container .create-account-forms input[type=password] {
+  width: 70%;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  background-color: #cfcfcf;
+  border-radius: 10px 10px 0px 0px;
+  border-bottom: 2px solid var(--accent-line-color);
+}
+
+.session-container .create-account-forms input:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+  background-color: #afafaf;
+  transition: .2s;
+  border: 1px solid var(--darker-accent-line-color);
+  border-bottom: 2px solid var(--darker-accent-line-color);
+}
+
+.session-container .create-account-forms label {
+  font-weight: 100;
+  font-size: 18px;
+  letter-spacing: 3px;
+  margin-bottom: 0px !important;
+}
+
+.session-container .create-account-forms .profile-pic {
+  text-align: center;
+  width: fit-content;
+  height: fit-content;
+  padding: 2px;
+  margin: auto;
+  margin-bottom: 30px;
+  border-radius: 50%;
+  background: var(--profile-border-color);
+}
+
+.session-container .create-account-forms .profile-pic img {
+  border-radius: 50%;
+  width: 150px !important;
+  height: 150px !important;
+}
+
+.session-container .create-account-forms .second-Row label {
+  margin-bottom: 10px !important;
+}
+
+.session-container .create-account-forms .second-Row .image {
+  margin-bottom: 15px !important;
+}
+
+.session-container .create-account-forms .second-Row label svg {
+  margin-left: 10px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.session-container .create-account-forms .second-Row .pais label {
+  width: 100%;
+}
+
+.session-container .create-account-forms .second-Row .pais select {
+  width: 100%;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  background-color: #cfcfcf;
+  border-radius: 10px 10px 0px 0px;
+  border-bottom: 2px solid var(--accent-line-color);
+}
+
+.session-container .create-account-forms .second-Row label svg:hover {
+  transform: scale(1.2);
+  transition: .2s;
+}
+
+.session-container .create-account-forms input[type=file] {
+  display: none;
+}
+
+.session-container .create-account-forms .second-Row .voicechat {
+  display: flex;
+}
+
+.session-container .create-account-forms .second-Row .voicechat label {
+  width: 80%;
+}
+
+.session-container .create-account-forms .second-Row .voicechat label {
+  width: 80%;
+}
+
+.session-container .create-account-forms .second-Row .voicechat input {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-top: 15px;
+}
+
+.session-container .create-account-forms .second-Row .voicechat input:checked {
+  background: var(--nav-color);
+  transition: .2;
+  background-color: #cfcfcf;
+}
+
+.session-container .create-account-forms .second-Row .pais-y-voice {
+  margin-bottom: 20px;
+}
+
+.session-container .create-account-forms .second-Row input[type=submit] {
+  background: var(--nav-color);
+  color: white;
+  letter-spacing: 20px;
+  font-size: 20px;
+}
+
+.session-container .create-account-forms .second-Row input[type=submit]:hover {
+  background: var(--darker-nav-color);
+  transform: scale(1.1);
+  transition: .2s;
+}
+
+.session-container .create-account-forms .second-Row .label-inicio {
+  text-align: center;
+}
+
+.session-container .create-account-forms .second-Row .label-inicio label{
+  margin-top: 10px;
+  color: #747474
+}
+.session-container .create-account-forms .second-Row .label-inicio label u:hover{
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s;
 }

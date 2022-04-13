@@ -8,16 +8,15 @@ import { PublicationPage } from './Components/Pages/PublicationPage';
 import { AboutUsPage } from './Components/Pages/AboutUsPage';
 import { FriendsPage } from './Components/Pages/FriendsPage';
 import { ChatPage } from './Components/Pages/ChatPage';
-import { StartSessionPage } from './Components/Pages/StartSessionPage'
+import { SessionPage } from './Components/Pages/SessionPage'
 import { ProfilePage } from './Components/Pages/ProfilePage'
 import { Navbar } from './Components/Pages/Navbar';
-import { Footer } from './Components/Pages/Footer';
 
-function App() {
+export function App() {
   return (
     <div className='App'>
       <Router>
-        <Navbar />
+        <Navbar/>
         <Routes>
           <Route exact path='/' element={<HomePage />}></Route>
           <Route exact path='/Publication' element={<PublicationPage />}></Route>
@@ -25,15 +24,12 @@ function App() {
           <Route exact path='/AboutUs' element={<AboutUsPage />}></Route>
           <Route exact path='/Friends' element={<FriendsPage />}></Route>
           <Route exact path='/Chat' element={<ChatPage />}></Route>
-          <Route exact path='/Session' element={<StartSessionPage />}></Route>
+          <Route exact path='/Session' element={<SessionPage />}></Route>
           <Route exact path='/Profile' element={<ProfilePage />}></Route>
         </Routes>
-        <Footer/>
       </Router>
     </div>
   )
 
 };
 
-
-export default App;
