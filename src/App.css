@@ -1068,11 +1068,12 @@ body {
   text-align: center;
 }
 
-.session-container .create-account-forms .second-Row .label-inicio label{
+.session-container .create-account-forms .second-Row .label-inicio label {
   margin-top: 10px;
   color: #747474
 }
-.session-container .create-account-forms .second-Row .label-inicio label u:hover{
+
+.session-container .create-account-forms .second-Row .label-inicio label u:hover {
   font-weight: 700;
   cursor: pointer;
   transition: .2s;

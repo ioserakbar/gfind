@@ -1,11 +1,18 @@
 import { faFileUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ReactCrop from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css'
 import React, { useState } from 'react';
-import { Col, Input, Label, Row } from 'reactstrap';
+import { Button, Col, Input, Label, Row } from 'reactstrap';
 
 export function InicioSession() {
 
-  const [profilePic, setProfilePic] = useState();
+  const [profilePic, setProfilePic] = useState(null);
+
+  const [crop, setCrop] = useState({ aspect: 1 / 1 })
+
+  const [image, setImage] = useState(null);
+  const [result, setResult] = useState(null);
 
   const onlyNumber = (event) => {
     if (!/[0-9]/.test(event.key)) {
@@ -13,17 +20,42 @@ export function InicioSession() {
     }
   }
 
-  const imageHandleChange = (e) => {
-    if (e.target.files) {
-
-      const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
-      setProfilePic(fileArray);
-      Array.from(e.target.files).map((file) => URL.revokeObjectURL(file));
-
-    } else {
-      alert('No se pudo cargar el archivo deseado, por favor intente de nuevo');
-    }
+  const imageHandleChange = e => {
+    setProfilePic(URL.createObjectURL(e.target.files[0]));
   }
+
+  function getCroppedImg() {
+
+    const canvas = document.createElement("canvas");
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+    const ctx = canvas.getContext("2d");
+
+    // New lines to be added
+    const pixelRatio = window.devicePixelRatio;
+    canvas.width = crop.width * pixelRatio;
+    canvas.height = crop.height * pixelRatio;
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    ctx.imageSmoothingQuality = "high";
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
+
+    setResult(canvas.toDataURL('image/jpeg'));
+  }
+
+
   const renderMultimedia = (source) => {
 
 
@@ -36,7 +68,7 @@ export function InicioSession() {
 
     } else {
       return (
-        
+
         <div className='profile-pic'>
           <img src={require('../../Resources/Imgs/user.png')} alt='profilePic' />
         </div>
@@ -61,7 +93,7 @@ export function InicioSession() {
               <Input id='email' type='text' />
 
               <Label for='edad'>Edad: </Label>
-              <Input id='edad' type='text' onKeyPress={onlyNumber} autocomplete="off" />
+              <Input id='edad' type='text' onKeyPress={onlyNumber} autoComplete="off" />
 
               <Label for='user'>Nickname: </Label>
               <Input id='user' type='text' autocomplete="off" />
@@ -75,14 +107,21 @@ export function InicioSession() {
             <Label className='vertical-line' />
             <Col className='second-Row'>
 
-              {renderMultimedia(profilePic)}
+              {profilePic && (
+                <ReactCrop onImageLoaded={setImage} src={profilePic} crop={crop} onChange={newCrop => setCrop(newCrop)} />
+              )}
+
+              {result && (
+                <img src={result} />
+              )}
 
               <div className='image'>
+                <Button type='button' onClick={getCroppedImg} >Crop</Button>
                 <Label >Foto de perfil</Label>
                 <Label htmlFor="profilePic">
                   <FontAwesomeIcon icon={faFileUpload} />
                 </Label>
-                <Input id='profilePic' type='file' accept='.jpeg, .jpg, .png, .bmp' onChange={imageHandleChange}/>
+                <Input id='profilePic' type='file' accept='.jpeg, .jpg, .png, .bmp' onChange={imageHandleChange} />
               </div>
               <Row className='pais-y-voice'>
                 <Col className='pais'>
@@ -106,6 +145,17 @@ export function InicioSession() {
           </Row>
         </form>
       </Row>
+      <div className='modal-publication-form'>
+        <Container className='modal-content-publication'>
+          <Card>
+            <CardHeader className='title'>
+              <Label>Publicar</Label>
+              <FontAwesomeIcon className='close-publication-modal' icon={faTimesCircle} onClick={this.closeModal} />
+            </CardHeader>
+            <PublicationFormsModal />
+          </Card>
+        </Container>
+      </div>
     </>
   );
 

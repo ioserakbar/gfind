@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {  Card, CardBody, CardFooter, CardHeader, Container} from 'reactstrap';
 import { PublicationDetail } from './publicationDetail';
-import '../../App.css'
 import { PublicationHeader } from './publicationHeader';
 import { PublicationFooter } from './publicationFooter';
 
