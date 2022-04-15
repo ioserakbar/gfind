@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Container } from 'reactstrap';
-import { InicioSession } from '../Session/inicioSession';
+import { CreateAccount } from '../Session/createAccount';
 
-export class SessionPage extends Component {
+export class CreateAccountPage extends Component {
   constructor() {
     super();
     this.state = {
@@ -13,7 +13,7 @@ export class SessionPage extends Component {
   render() {
     return (
       <Container className='session-container'>
-        <InicioSession />
+        <CreateAccount/>
       </Container>
     );
   }

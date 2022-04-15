@@ -1,16 +1,16 @@
-import { faFileUpload } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faFileUpload, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css'
 import React, { useState } from 'react';
-import { Button, Col, Input, Label, Row } from 'reactstrap';
+import { Button, Card, CardBody, CardHeader, Col, Container, Input, Label, Row } from 'reactstrap';
 
-export function InicioSession() {
+export function CreateAccount() {
 
   const [profilePic, setProfilePic] = useState(null);
 
-  const [crop, setCrop] = useState({ aspect: 1 / 1 })
-
+  const [crop, setCrop] = useState({ aspect: 1 / 1, minWidth: 50, minHeight: 50 })
+  const [profileModal, setProfileModal] = useState(false);
   const [image, setImage] = useState(null);
   const [result, setResult] = useState(null);
 
@@ -22,6 +22,22 @@ export function InicioSession() {
 
   const imageHandleChange = e => {
     setProfilePic(URL.createObjectURL(e.target.files[0]));
+    openModal();
+  }
+
+  const closeModal = () => {
+    setProfileModal(false);
+  }
+
+  const openModal = () => {
+    setProfileModal(true);
+  }
+
+  const editPic = () => {
+    if (result)
+      openModal();
+    else
+      alert('Suba una imagen primero')
   }
 
   function getCroppedImg() {
@@ -58,17 +74,14 @@ export function InicioSession() {
 
   const renderMultimedia = (source) => {
 
-
     if (source) {
       return (
         <div className='profile-pic'>
           <img src={source} alt='profilePic' />
         </div>
       )
-
     } else {
       return (
-
         <div className='profile-pic'>
           <img src={require('../../Resources/Imgs/user.png')} alt='profilePic' />
         </div>
@@ -107,21 +120,21 @@ export function InicioSession() {
             <Label className='vertical-line' />
             <Col className='second-Row'>
 
-              {profilePic && (
-                <ReactCrop onImageLoaded={setImage} src={profilePic} crop={crop} onChange={newCrop => setCrop(newCrop)} />
-              )}
+              {renderMultimedia(result)}
 
-              {result && (
-                <img src={result} />
-              )}
 
               <div className='image'>
-                <Button type='button' onClick={getCroppedImg} >Crop</Button>
                 <Label >Foto de perfil</Label>
                 <Label htmlFor="profilePic">
                   <FontAwesomeIcon icon={faFileUpload} />
                 </Label>
                 <Input id='profilePic' type='file' accept='.jpeg, .jpg, .png, .bmp' onChange={imageHandleChange} />
+                {result && (
+                  <Label>
+                    <FontAwesomeIcon icon={faEdit} onClick={editPic} />
+                  </Label>
+                )}
+
               </div>
               <Row className='pais-y-voice'>
                 <Col className='pais'>
@@ -145,17 +158,45 @@ export function InicioSession() {
           </Row>
         </form>
       </Row>
-      <div className='modal-publication-form'>
-        <Container className='modal-content-publication'>
-          <Card>
-            <CardHeader className='title'>
-              <Label>Publicar</Label>
-              <FontAwesomeIcon className='close-publication-modal' icon={faTimesCircle} onClick={this.closeModal} />
-            </CardHeader>
-            <PublicationFormsModal />
-          </Card>
-        </Container>
-      </div>
+      {
+        profileModal ? (
+          <div className='modal-profile-pic'>
+            <Container className='modal-content-profile-pic'>
+              <Card>
+                <CardHeader className='title'>
+                  <Label>Foto de perfil</Label>
+                  <FontAwesomeIcon className='close-modal-profile-pic' icon={faTimesCircle} onClick={closeModal} />
+                </CardHeader>
+                <CardBody>
+                  <Row>
+                    <Col className='to-crop-col'>
+                      <div className='image-to-crop'>
+                        <ReactCrop onImageLoaded={setImage} src={profilePic} crop={crop} onChange={newCrop => setCrop(newCrop)} />
+                      </div>
+                      <Button className='crop-btn' onClick={getCroppedImg}>Cortar imagen</Button>
+                    </Col>
+                    <Col className='cropped-col'>
+
+                      {result && (
+                        <>
+                          <div>
+                            <img src={result} alt='cropped' />
+                          </div>
+                          <Button className='set-profile-pic-btn' onClick={closeModal} >Aceptar</Button>
+                        </>
+                      )}
+
+                    </Col>
+                  </Row>
+                </CardBody>
+              </Card>
+            </Container>
+          </div>
+        ) : (
+          <></>
+        )
+      }
+
     </>
   );
 

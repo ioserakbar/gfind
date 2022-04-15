@@ -66,12 +66,12 @@ export function Navbar() {
                 </Link>
               </Col>
               <Col md={2} className="nav-text-col">
-                <Link to={'/Session'} >
+                <Link to={'/LogIn'} >
                   <Label className='nav-text' onClick={registerUser} ><FontAwesomeIcon icon={faUser} /> Iniciar sesion</Label>
                 </Link>
               </Col>
               <Col md={2} className="nav-text-col">
-                <Link to={'/Session'} >
+                <Link to={'/CreateAccount'} >
                   <Label className='nav-text'><FontAwesomeIcon icon={faUser} />Crear cuenta</Label>
                 </Link>
               </Col>

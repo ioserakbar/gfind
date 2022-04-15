@@ -8,15 +8,16 @@ import { PublicationPage } from './Components/Pages/PublicationPage';
 import { AboutUsPage } from './Components/Pages/AboutUsPage';
 import { FriendsPage } from './Components/Pages/FriendsPage';
 import { ChatPage } from './Components/Pages/ChatPage';
-import { SessionPage } from './Components/Pages/SessionPage'
+import { CreateAccountPage } from './Components/Pages/CreateAccount'
 import { ProfilePage } from './Components/Pages/ProfilePage'
 import { Navbar } from './Components/Pages/Navbar';
+import { LogInPage } from './Components/Pages/LogInPage';
 
 export function App() {
   return (
     <div className='App'>
       <Router>
-        <Navbar/>
+        <Navbar />
         <Routes>
           <Route exact path='/' element={<HomePage />}></Route>
           <Route exact path='/Publication' element={<PublicationPage />}></Route>
@@ -24,7 +25,8 @@ export function App() {
           <Route exact path='/AboutUs' element={<AboutUsPage />}></Route>
           <Route exact path='/Friends' element={<FriendsPage />}></Route>
           <Route exact path='/Chat' element={<ChatPage />}></Route>
-          <Route exact path='/Session' element={<SessionPage />}></Route>
+          <Route exact path='/CreateAccount' element={<CreateAccountPage />}></Route>
+          <Route exact path='/LogIn' element={<LogInPage />}></Route>
           <Route exact path='/Profile' element={<ProfilePage />}></Route>
         </Routes>
       </Router>
