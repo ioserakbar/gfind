@@ -1,11 +1,11 @@
-import { faFileUpload, faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faFileUpload, faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Col, Label, Row, Button} from 'reactstrap';
 
 export class PublicationFooter extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       someKey: 'someValue'
     };
@@ -20,6 +20,7 @@ export class PublicationFooter extends React.Component {
         <Col md={3} className="publication-footer-sendbtns" >
           <Button>Enviar</Button>
           <FontAwesomeIcon icon={faFileUpload} />
+          <FontAwesomeIcon icon={faEye} onClick={ () => this.props.commentsCallback(true)}/>
         </Col>
         <Col md={3} className="publication-footer-likes">
           <Label><FontAwesomeIcon icon={faThumbsUp} />0</Label>

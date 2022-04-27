@@ -21,7 +21,6 @@ export class PublicationHeader extends React.Component {
         data: this.props.data
       })
 
-      console.log(this.props.data)
       this.forceUpdate();
     }
   }

@@ -12,7 +12,7 @@ export class LogInPage extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Container className='session-container'>
         <LogIn/>
       </Container>
     );

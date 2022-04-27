@@ -1,4 +1,4 @@
-import { faFileUpload, faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faFileUpload, faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button, Card, CardBody, CardFooter, CardHeader, Col, Container, Label, Row } from 'reactstrap';
@@ -82,8 +82,9 @@ export class PublicationPlaceholder extends React.Component {
             <Col md={3} className="publication-footer-sendbtns-placeholder">
               <Button>Enviar</Button>
               <FontAwesomeIcon icon={faFileUpload} />
+              <FontAwesomeIcon icon={faEye}/>
             </Col>
-            <Col md={3} className="publication-footer-likes-placeholder">
+            <Col md={33} className="publication-footer-likes-placeholder">
               <Label><FontAwesomeIcon icon={faThumbsUp} /></Label>
               <Label><FontAwesomeIcon icon={faThumbsDown} /></Label>
             </Col>

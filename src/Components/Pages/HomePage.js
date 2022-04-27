@@ -1,7 +1,8 @@
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { Button, Card, CardHeader, Col, Container, Label, Row } from 'reactstrap';
+import { Button, Card, CardBody, CardHeader, Col, Container, Label, Row } from 'reactstrap';
+import { CommentsModal } from '../Comments/commentsModal';
 import { Publication } from '../Publicacion/publication';
 import { PublicationFormsModal } from '../Publicacion/publicationFormsModal';
 import { PublicationPlaceholder } from '../Publicacion/publicationPlaceholder';
@@ -14,7 +15,9 @@ export class HomePage extends React.Component {
     this.state = {
       status: false,
       publications: [],
-      modal: false
+      modal: false,
+      commentsModal: false,
+      publicationModalID: ''
     };
   }
 
@@ -29,18 +32,19 @@ export class HomePage extends React.Component {
         modal: false
       })
     }
+
     this.forceUpdate();
   }
 
-  openModal = () => {
+  publicationModal = (pState) => {
     this.setState({
-      modal: true
+      modal: pState
     })
   }
 
-  closeModal = () => {
+  commentsModal = (pState) => {
     this.setState({
-      modal: false
+      commentsModal: pState
     })
   }
 
@@ -54,34 +58,31 @@ export class HomePage extends React.Component {
             </Col>
             {this.state.status ? (
               <Col md={6} >
-                <Row className='search-bar add-pub-btn' >
+                <Row className='search-bar ' >
                   <Col md={1}>
-                    <img src='https://i.imgur.com/aD2V747.jpeg' alt='profilePic' />
+                    <img src='https://i.imgur.com/aD2V747.jpeg' alt='profile-pic' />
                   </Col>
-                  <Col md={11}>
-                    <Button onClick={this.openModal} >Crear publicacion</Button>
+                  <Col md={10}>
+                    <Button onClick={() => this.publicationModal(true)} className='search-bar add-pub-btn'> Crear publicacion </Button>
                   </Col>
                 </Row>
                 <Row>
                   {this.state.publications.map((publication, index) => (
-                    <Publication key={index} id={publication._id} dataPub={publication} userID={publication.userID} />
+                    <Publication key={index} id={publication._id} dataPub={publication} userID={publication.userID} commentsCallback={this.commentsModal}/>
                   ))}
                 </Row>
               </Col>
             ) : (
               <Col md={6} >
-                <Row className='search-bar'>
+                <Row className='search-bar' >
                   <Col md={1}>
-                    <img src='https://i.imgur.com/aD2V747.jpeg' alt='profilePic' />
+                    <img src='https://i.imgur.com/aD2V747.jpeg' alt='profile-pic' />
                   </Col>
                   <Col md={10}>
-                    <Button onClick={this.openModal} className='search-bar add-pub-btn'>Crear publicación</Button>
+                    <Button className='search-bar add-pub-btn' onClick={() => this.publicationModal(true)}>Crear publicación</Button>
                   </Col>
                 </Row>
                 <Row>
-                  <PublicationPlaceholder />
-                  <PublicationPlaceholder />
-                  <PublicationPlaceholder />
                   <PublicationPlaceholder />
                   <PublicationPlaceholder />
                   <PublicationPlaceholder />
@@ -93,21 +94,14 @@ export class HomePage extends React.Component {
             </Col>
           </Row>
         </Container>
-        {this.state.modal ? (
-          <div className='modal-publication-form'>
-            <Container className='modal-content-publication'>
-              <Card>
-                <CardHeader className='title'>
-                  <Label>Publicar</Label>
-                  <FontAwesomeIcon className='close-publication-modal' icon={faTimesCircle} onClick={this.closeModal} />
-                </CardHeader>
-                <PublicationFormsModal />
-              </Card>
-            </Container>
-          </div>
-        ) : (
-          <></>
+        {this.state.modal && (
+          <PublicationFormsModal closeCallback={this.publicationModal} />
         )}
+        {this.state.commentsModal && (
+          <CommentsModal closeCallback = {this.commentsModal}/>
+        )
+
+        }
       </>
     );
   }

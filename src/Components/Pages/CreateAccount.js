@@ -12,9 +12,11 @@ export class CreateAccountPage extends Component {
 
   render() {
     return (
-      <Container className='session-container'>
-        <CreateAccount/>
-      </Container>
+      <>
+        <Container className='session-container'>
+          <CreateAccount />
+        </Container>
+      </>
     );
   }
 }
