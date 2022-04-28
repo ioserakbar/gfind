@@ -32,7 +32,7 @@ export class PublicationHeader extends React.Component {
       this.state.status ? (
         <Row className='publication-header-row'>
           <Col md={1} className='user-img' >
-            <img src={profilePic} alt="pfp" />
+            <img src={profilePic.path} alt="pfp" />
           </Col>
           <Col md={7} className='user-name'>
             <Label>{name}</Label>

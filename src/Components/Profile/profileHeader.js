@@ -1,8 +1,8 @@
-import { faMessage } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisH, faMessage } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import ReactCountryFlag from 'react-country-flag';
-import { Label, Row } from 'reactstrap';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Label, Row } from 'reactstrap';
 
 export const ProfileHeader = (props) => {
 
@@ -10,6 +10,7 @@ export const ProfileHeader = (props) => {
 
   const [countryName, setCountryName] = useState('');
   const [gotCountry, setGotCountry] = useState(false);
+  const [drop, setDrop] = useState(false);
 
   useEffect(() => {
     async function getCountry() {
@@ -23,15 +24,17 @@ export const ProfileHeader = (props) => {
         }
       }
     }
-    console.log(props);
-    //getCountry();
+    getCountry();
   });
 
+  const toggleDrop = () => {
+    setDrop(!drop);
+  }
 
   return (
     <div className='header'>
       <Row className='cover-image' >
-        <img src={props.backgroundPic.path} alt="profile-pic" />
+        <img src='https://gfindmultimediadb.blob.core.windows.net/backgroundpics/defaultBackground.jpg' alt="profile-pic" />
       </Row>
       <Label className='bottom-line-profile' />
       <Row className='profile-pic' >
@@ -39,11 +42,29 @@ export const ProfileHeader = (props) => {
       </Row>
       <Row className='profile-content'>
         <Row className='header'>
-          <Label>
+          <Label className='name-options'>
             <Label className='name'>{props.name}</Label>
+            {props.isMine && (
+              <>
+                <Dropdown isOpen={drop} toggle={toggleDrop} className='options'>
+                  <DropdownToggle className='toggle'>
+                    <FontAwesomeIcon claassName='optionsMenu' icon={faEllipsisH} />
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem header>Opciones</DropdownItem>
+                    <DropdownItem >Editar foto de fondo</DropdownItem>
+                    <DropdownItem >Editar foto de perfil</DropdownItem>
+                    <DropdownItem >Editar descripcion</DropdownItem>
+                    <DropdownItem divider/>
+                    <DropdownItem disabled>Editar informacion</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </>
+            )}
+
           </Label>
           <Label className='info'>
-            <Label className='age'>20 años</Label>
+            <Label className='age'>{props.age} años</Label>
             <Label className='country'>{countryName}<ReactCountryFlag countryCode={props.country} svg /></Label>
             {!props.isMine && (
               <Label className='message'>

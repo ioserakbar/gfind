@@ -17,6 +17,7 @@ function Profile(props) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [backgroundPic, setbackgroundPic] = useState('');
+  const [age, setAge] = useState('');
   const [userID, setUserID] = useState('');
   const [country, setCountry] = useState('');
 
@@ -47,6 +48,7 @@ function Profile(props) {
           setDescription(data.description);
           setbackgroundPic(data.backgroundImg);
           setCountry(data.countryID);
+          setAge(data.age);
         }
 
       }
@@ -63,7 +65,7 @@ function Profile(props) {
     state ? (
       <>
         <Container className='profile'>
-          <ProfileHeader profilePic={profileImage} backgroundPic={backgroundPic} name={name} description={description} isMine={isMine} country={country}/>
+          <ProfileHeader profilePic={profileImage} backgroundPic={backgroundPic} name={name} description={description} isMine={isMine} country={country} age={age} />
           <Label className='bottom-line-profile-true' />
           <ProfileContent />
         </Container>

@@ -96,7 +96,7 @@ export function CreateAccount() {
     const validName = /^[a-zA-Z ]{1,}$/;
     const validEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    alert(country);
+    
     if (name === '' || email === '' || edad === '' || user === '' || contra === '' || contra2 === '' || country === '') {
       setError('Llene los campos vacios.');
     } else if (contra !== contra2) {
@@ -114,13 +114,14 @@ export function CreateAccount() {
     } else {
 
       setError('');
-      //setLoading(true);
+      setLoading(true); 
 
       const img = $('#profile-pic').attr('src');
       const parts = img.split(';')
       const mime = parts[0].split(':')[1].split('/')[1];
-      const imgName = name + "-profile-pic";
+      const imgName = name.replace(/\s+/g, '-') + "-profile-pic";
       const profilePicData = parts[1].split('base64,').pop();
+
 
       const profilePic = {
         "name": imgName,
@@ -151,7 +152,7 @@ export function CreateAccount() {
         cookies.set(constants.CookieUserID, respJson.Data._id, { path: '/' })
         cookies.set(constants.CookieIsLogedIn, true, { path: '/' })
         setLoading(false);
-        //navigate('/home');
+        navigate('/home');
 
       }
     }

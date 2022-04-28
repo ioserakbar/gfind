@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { HomePage } from './Components/Pages/HomePage';
 import { UsersPage } from './Components/Pages/UsersPage';
-import { PublicationPage } from './Components/Pages/PublicationPage';
 import { AboutUsPage } from './Components/Pages/AboutUsPage';
 import { FriendsPage } from './Components/Pages/FriendsPage';
 import { ChatPage } from './Components/Pages/ChatPage';
@@ -40,9 +39,8 @@ export class App extends React.Component {
       <div className='App'>
         <Router>
           <Navbar isRegistered={this.state.isLogedIn} />
-          <Routes>
+          <Routes> 
             <Route exact path='/Home' element={<HomePage />}></Route>
-            <Route exact path='/Publication' element={<PublicationPage />}></Route>
             <Route exact path='/users' element={<UsersPage />}></Route>
             <Route exact path='/' element={<AboutUsPage />}></Route>
             <Route exact path='/Friends' element={<FriendsPage />}></Route>

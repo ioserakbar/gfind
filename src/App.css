@@ -1608,7 +1608,7 @@ body {
 .loading-modal {
   display: block;
   position: fixed;
-  z-index: 2;
+  z-index: 4;
   padding-top: 100px;
   left: 0;
   top: 0;
@@ -1860,9 +1860,30 @@ body {
   width: 100% !important;
   margin-bottom: 5px;
   margin-top: -20px;
-  justify-content: center;
-  align-items: center;
 }
+.profile .profile-content .header .name-options{
+  width: 50%;
+  margin-bottom: 5px;
+  margin-top: -20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.profile .profile-content .header .options svg{
+  color: black;
+  font-size: 30px;
+}
+.profile .profile-content .header .options {
+  box-shadow: none;
+  background: transparent;
+}
+.profile .profile-content .header .options .toggle{
+  box-shadow: none;
+  outline: none;
+  border:none;
+  background: transparent;
+  margin-left: -40px;
+}
+
 
 .profile .profile-content .info {
   width: 45%;
