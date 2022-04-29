@@ -20,7 +20,6 @@ export class PublicationHeader extends React.Component {
         status: true,
         data: this.props.data
       })
-
       this.forceUpdate();
     }
   }

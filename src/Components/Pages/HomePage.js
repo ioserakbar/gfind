@@ -13,7 +13,7 @@ export class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: false,
+      status: true,
       publications: [],
       modal: false,
       commentsModal: false,
