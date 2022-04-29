@@ -37,7 +37,7 @@ export const PublicationFormsModal = (props) => {
       setBase64Multimedia((prevImages) => prevImages.concat(jsonBase64))
       setMultimediaJson((prevImages) => prevImages.concat(json2))
       Array.from(e.target.files).map((file) => URL.revokeObjectURL(file));
-
+ 
     } else {
       alert('No se pudo cargar el archivo deseado, por favor intente de nuevo');
     }
@@ -45,13 +45,17 @@ export const PublicationFormsModal = (props) => {
 
   async function publicate(e) {
     const cookies = new Cookies();
+    const content = $('#content').val();
     if (cookies.get(constants.CookieIsLogedIn) === 'false') {
       alert("Se necesita iniciar sesion para publicar")
+      return;
+    }else if (content === ''  && base64Multimedia.length === 0){
+      alert("No puedes publicar algo vacio");
       return;
     }
     e.preventDefault()
     setLoading(true);
-    const content = $('#content').val();
+   
     const userID = cookies.get(constants.CookieUserID);
     let multiArray2 = [];
     let index = 0
@@ -103,12 +107,14 @@ export const PublicationFormsModal = (props) => {
 
     const respJson = await response.json();
     console.log(respJson)
-    if(respJson.success){
-      setLoading(false)
-      props.closeCallback(false)
+    setLoading(false)
+    props.closeCallback(false)
+    if(!respJson.success){
+      props.closeCallback(false);
+      alert('Hubo un error subiendo la publicacion, por favor intente de nuevo');
 
     }
-    
+
   }
 
   const renderMultimedia = (source) => {

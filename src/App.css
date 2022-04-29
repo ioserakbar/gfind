@@ -226,9 +226,47 @@ body {
 
 }
 
-.publication .publication-body .publication-multimedia {
-  padding: 0;
+.multimedia-closer {
+  color: var(--accent-line-color);
+  display: block;
+  filter: opacity(50%);
+  font-size: 25px;
+  transform: translateY(100%); 
+  cursor: pointer;
+  padding: 10px;
 }
+
+.multimedia-closer svg:hover {
+  transition: .2s;
+  background-color: #05c9cf !important;
+  color: #05c9cf !important;
+}
+
+.publication .publication-body .publication-multimedia,
+.publication .publication-body .publication-multimedia-alone {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.publication .publication-body .publication-multimedia {
+  width: 300px;
+  height: 300px;
+}
+
+.publication .publication-body .publication-multimedia-alone {
+  width: 100%;
+  height: 350px;
+}
+
+
+.publication .publication-body .publication-multimedia-alone img,
+.publication .publication-body .publication-multimedia-alone video {
+  width: 100%;
+  box-shadow: 0px 5px 10px black;
+
+}
+
 
 .publication .publication-body .publication-description-image {
   margin-right: 0;
@@ -1861,25 +1899,29 @@ body {
   margin-bottom: 5px;
   margin-top: -20px;
 }
-.profile .profile-content .header .name-options{
+
+.profile .profile-content .header .name-options {
   width: 50%;
   margin-bottom: 5px;
   margin-top: -20px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-.profile .profile-content .header .options svg{
+
+.profile .profile-content .header .options svg {
   color: black;
   font-size: 30px;
 }
+
 .profile .profile-content .header .options {
   box-shadow: none;
   background: transparent;
 }
-.profile .profile-content .header .options .toggle{
+
+.profile .profile-content .header .options .toggle {
   box-shadow: none;
   outline: none;
-  border:none;
+  border: none;
   background: transparent;
   margin-left: -40px;
 }

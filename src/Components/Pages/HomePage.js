@@ -32,7 +32,6 @@ export class HomePage extends React.Component {
         modal: false
       })
     }
-
     this.forceUpdate();
   }
 

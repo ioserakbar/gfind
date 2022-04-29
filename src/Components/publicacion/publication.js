@@ -52,10 +52,10 @@ export class Publication extends Component {
             </Container>
           </CardHeader>
           <CardBody className='publication-body'>
-            <PublicationDetail content={content} multimedia={multimedia} />
+            <PublicationDetail multimedia={multimedia} content={content} />
           </CardBody>
           <CardFooter className='publication-footer'>
-            <PublicationFooter commentsCallback={this.commentCallback}/>
+            <PublicationFooter commentsCallback={this.commentCallback} />
           </CardFooter>
         </Card>
       ) : (
