@@ -18,7 +18,7 @@ export class PublicationHeader extends React.Component {
   async componentDidMount() {
     if (this.props) {
       const date = this.calcDate(this.props.date);
-
+      this.calcDateSince(this.props.date);
       await this.setState({
         status: true,
         data: this.props.data,
@@ -28,9 +28,10 @@ export class PublicationHeader extends React.Component {
     }
   }
 
+
   calcDate(pDate) {
     var date = new Date(pDate);
-    const monthString = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+    const monthString = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
     const day = date.getDate();
     const month = monthString[date.getMonth()];
@@ -39,8 +40,68 @@ export class PublicationHeader extends React.Component {
     return `El ${day} de ${month} de ${year}`;
   }
 
-  calcDateSince(pDate){
+  async calcDateSince(pDate) {
+    var date = new Date(pDate);
+    const dateNow = new Date();
+    var dateNowString = `${dateNow.getFullYear()}-${dateNow.getMonth()}-${dateNow.getDate()}`;
+    var dateString = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    const date1 = new Date(dateNowString);
+    const date2 = new Date(dateString);
 
+    const result = date1 - date2;
+    const diffDays = Math.ceil(result / (1000 * 60 * 60 * 24));
+    let sinceMessage = '';
+
+
+    if (diffDays === 0) //PUBLICADO EL MISMO DIA
+      sinceMessage = 'Hoy';
+    else if (diffDays <= 7) { //PUBLICADO HACE 1-7 DIAS
+      if (diffDays === 1)
+        sinceMessage = 'Ayer';
+      else if (diffDays === 2)
+        sinceMessage = 'Antier';
+      else if (diffDays === 7)
+        sinceMessage = `La semana pasada`;
+      else
+        sinceMessage = `Hace ${diffDays} dias`;
+    }
+    else if (diffDays <= 30) { //PUBLICADO HACE MENOS DE 30 DIAS
+      if (diffDays > 7 && diffDays <= 14)
+        sinceMessage = `La semana antepasada`;
+      else if (diffDays > 14 && diffDays <= 21)
+        sinceMessage = `Hace 3 semanas`;
+      else if (diffDays === 30)
+        sinceMessage = `Hace un mes`;
+      else
+        sinceMessage = `Hace 4 semanas`;
+    }
+    else if (diffDays > 30 && diffDays <= 365) { //PUBLICADO HACE MAS DE 30 DIAS
+      const daysinMonths = Math.round(diffDays / 30);
+      if (daysinMonths === 1)
+        sinceMessage = `Hace un mes`;
+      else if (daysinMonths === 2)
+        sinceMessage = `El mes pasado`;
+      else if (daysinMonths === 3)
+        sinceMessage = `El mes antepasado`;
+      else if (daysinMonths === 12)
+        sinceMessage = `Hace un año`;
+      else
+        sinceMessage = `Hace ${daysinMonths} meses`;
+    } else {
+      const daysInYears = Math.round(diffDays / 365);
+      if(daysInYears === 1)
+        sinceMessage = `Hace un año`
+      else if (daysInYears === 2)
+        sinceMessage  = `El año pasado`
+        else if (daysInYears === 3)
+        sinceMessage = `El año antepasado`
+        else 
+          sinceMessage = `Hace ${daysInYears} años`
+    }
+
+    await this.setState({
+      since: sinceMessage
+    })
   }
 
 
@@ -56,7 +117,7 @@ export class PublicationHeader extends React.Component {
           <Col md={7} className='user-name'>
             <Label>{name}</Label>
             <br ></br>
-            <small>hace aproximadamente 1 año</small>
+            <small>{this.state.since}</small>
           </Col>
           <Col md={3} className="publication-date" >
             <Label>{this.state.date}</Label>
