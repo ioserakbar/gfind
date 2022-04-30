@@ -5,24 +5,44 @@ import { Col, Label, Row } from 'reactstrap';
 export class PublicationHeader extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       status: false,
       data: {},
       since: '',
-      date: ''
+      date: '',
     };
   }
 
 
   async componentDidMount() {
-    if (this.props.data) {
+    if (this.props) {
+      const date = this.calcDate(this.props.date);
+
       await this.setState({
         status: true,
-        data: this.props.data
+        data: this.props.data,
+        date: date
       })
       this.forceUpdate();
     }
   }
+
+  calcDate(pDate) {
+    var date = new Date(pDate);
+    const monthString = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+    const day = date.getDate();
+    const month = monthString[date.getMonth()];
+    const year = date.getFullYear();
+
+    return `El ${day} de ${month} de ${year}`;
+  }
+
+  calcDateSince(pDate){
+
+  }
+
 
   render() {
 
@@ -39,7 +59,7 @@ export class PublicationHeader extends React.Component {
             <small>hace aproximadamente 1 año</small>
           </Col>
           <Col md={3} className="publication-date" >
-            <Label>El 2 de Octubre de 2021</Label>
+            <Label>{this.state.date}</Label>
           </Col>
         </Row>
       ) : (

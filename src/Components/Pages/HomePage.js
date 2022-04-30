@@ -2,6 +2,7 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button, Card, CardBody, CardHeader, Col, Container, Label, Row } from 'reactstrap';
+import { SrcModal } from '../../Resources/srcModal';
 import { CommentsModal } from '../Comments/commentsModal';
 import { Publication } from '../Publicacion/publication';
 import { PublicationFormsModal } from '../Publicacion/publicationFormsModal';
@@ -13,11 +14,14 @@ export class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: true,
+      status: false,
       publications: [],
       modal: false,
       commentsModal: false,
-      publicationModalID: ''
+      publicationModalID: '',
+      srcModal: false,
+      activeSrc: '',
+      srcType: ''
     };
   }
 
@@ -47,6 +51,14 @@ export class HomePage extends React.Component {
     })
   }
 
+  srcModal = (pState, pSrc, pType) => {
+    this.setState({
+      srcModal: pState,
+      activeSrc: pSrc,
+      srcType: pType
+    })
+  } 
+  
   render() {
     return (
       <>
@@ -67,7 +79,14 @@ export class HomePage extends React.Component {
                 </Row>
                 <Row>
                   {this.state.publications.map((publication, index) => (
-                    <Publication key={index} id={publication._id} dataPub={publication} userID={publication.userID} commentsCallback={this.commentsModal}/>
+                    <Publication
+                      key={index}
+                      id={publication._id}
+                      dataPub={publication}
+                      userID={publication.userID}
+                      commentsCallback={this.commentsModal}
+                      srcCallback={this.srcModal}
+                    />
                   ))}
                 </Row>
               </Col>
@@ -97,9 +116,12 @@ export class HomePage extends React.Component {
           <PublicationFormsModal closeCallback={this.publicationModal} />
         )}
         {this.state.commentsModal && (
-          <CommentsModal closeCallback = {this.commentsModal}/>
+          <CommentsModal closeCallback={this.commentsModal} />
         )
-
+        }
+        {this.state.srcModal && (
+          <SrcModal src={this.state.activeSrc} type={this.state.srcType} closeCallback={this.srcModal}/>
+        )
         }
       </>
     );

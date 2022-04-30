@@ -1,7 +1,7 @@
-import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPlay, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { Carousel, CarouselControl, CarouselIndicators, CarouselItem, Col, NavItem, Row } from 'reactstrap';
+import { Alert, Carousel, CarouselControl, CarouselIndicators, CarouselItem, Col, NavItem, Row } from 'reactstrap';
 
 
 export class PublicationDetail extends React.Component {
@@ -17,8 +17,13 @@ export class PublicationDetail extends React.Component {
       status: true,
       multimedia: [],
       content: "",
-      activeIndex: 0
+      activeIndex: 0,
+      activeSrc: ''
     };
+  }
+
+  openSrcModal(e) {
+    alert(e.target.src);
   }
 
   onExiting() {
@@ -37,8 +42,8 @@ export class PublicationDetail extends React.Component {
 
   previous() {
     if (this.animating) return;
-    const nextIndex = this.state.activeIndex === 0 ? this.props.multimedia.length - 1 : this.state.activeIndex - 1;
-    this.setState({ activeIndex: nextIndex });
+    const prevIndex = this.state.activeIndex === 0 ? this.props.multimedia.length - 1 : this.state.activeIndex - 1;
+    this.setState({ activeIndex: prevIndex });
   }
 
   goToIndex(newIndex) {
@@ -54,7 +59,6 @@ export class PublicationDetail extends React.Component {
         multimedia: this.props.multimedia,
         content: this.props.content
       });
-      console.log(this.state.content, this.state.multimedia);
       this.forceUpdate();
     }
 
@@ -77,46 +81,48 @@ export class PublicationDetail extends React.Component {
         hasMultipleMultimedia = false;
       } else {
         hasMultipleMultimedia = true;
-        if (this.state.multimedia.extention === 'mp4' || this.state.multimedia.extention === 'mkv') {
-          slides = this.state.multimedia.map((multimedia) => {
+
+        slides = this.state.multimedia.map((multimedia) => {
+          if (multimedia.extention === 'mp4' || multimedia.extention === 'mkv') {
             return (
               <CarouselItem
-                className="custom-tag"
+                className="publication-carousel"
                 tag="div"
                 key={multimedia.name}
                 onExiting={this.onExiting}
                 onExited={this.onExited}
               >
-                <video src={multimedia.path} />
-                <FontAwesomeIcon icon={faEye} className='multimedia-closer' />
+                 <FontAwesomeIcon icon={faPlayCircle} />
+                <video src={multimedia.path} onClick={(e) => this.props.srcCallback(true, e.target.src, 'video')} />
               </CarouselItem>
             );
-          });
-        } else {
-          slides = this.state.multimedia.map((multimedia) => {
+          } else {
             return (
               <CarouselItem
-                className="custom-tag"
+                className="publication-carousel"
                 tag="div"
                 key={multimedia.name}
                 onExiting={this.onExiting}
                 onExited={this.onExited}
               >
-                <FontAwesomeIcon icon={faEye} className='multimedia-closer' />
-                <img src={multimedia.path} alt={multimedia.name} />
+                <img src={multimedia.path} alt={multimedia.name} onClick={(e) => this.props.srcCallback(true, e.target.src, 'image')} />
               </CarouselItem>
             );
-          });
-        }
+          }
+        });
+
 
       }
 
     }
+
+
     const { activeIndex } = this.state;
 
-
     return (
+
       this.state.status ? (
+
         <Row className='card-body-row'>
           {
             hasImage && hasMultipleMultimedia ? (
@@ -126,8 +132,8 @@ export class PublicationDetail extends React.Component {
                   <Col className='publication-multimedia-alone'>
                     <Carousel
                       activeIndex={activeIndex}
-                      next={this.next}
                       interval={false}
+                      next={this.next}
                       previous={this.previous}
                     >
                       <CarouselIndicators items={this.props.multimedia} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
@@ -142,8 +148,8 @@ export class PublicationDetail extends React.Component {
                   <Col md={6} className='publication-multimedia'>
                     <Carousel
                       activeIndex={activeIndex}
-                      next={this.next}
                       interval={false}
+                      next={this.next}
                       previous={this.previous}
                     >
                       <CarouselIndicators items={this.props.multimedia} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
@@ -163,14 +169,12 @@ export class PublicationDetail extends React.Component {
                   <Col className='publication-multimedia-alone'>
                     {this.state.multimedia[0].extention === 'mp4' ? (
                       <>
-                        <FontAwesomeIcon icon={faEye} className='multimedia-closer' />
-                        <video src={this.state.multimedia[0].path} />
+                        <FontAwesomeIcon icon={faPlayCircle} />
+                        <video src={this.state.multimedia[0].path} onClick={(e) => this.props.srcCallback(true, e.target.src, 'video')} />
                       </>
-
                     ) : (
                       <>
-                        <FontAwesomeIcon icon={faEye} className='multimedia-closer' />
-                        <img src={this.state.multimedia[0].path} alt={this.state.multimedia[0].name} />
+                        <img src={this.state.multimedia[0].path} alt={this.state.multimedia[0].name} onClick={(e) => this.props.srcCallback(true, e.target.src, 'image')} />
                       </>
                     )}
                   </Col>
@@ -180,13 +184,12 @@ export class PublicationDetail extends React.Component {
                   <Col md={6} className='publication-multimedia'>
                     {this.state.multimedia[0].extention === 'mp4' ? (
                       <>
-                        <FontAwesomeIcon icon={faEye} className='multimedia-closer' />
-                        <video src={this.state.multimedia[0].path} />
+                        <FontAwesomeIcon icon={faPlayCircle} />
+                        <video src={this.state.multimedia[0].path} onClick={(e) => this.props.srcCallback(true, e.target.src, 'video')} />
                       </>
                     ) : (
                       <>
-                        <FontAwesomeIcon icon={faEye} className='multimedia-closer' />
-                        <img src={this.state.multimedia[0].path} alt={this.state.multimedia[0].name} />
+                        <img src={this.state.multimedia[0].path} alt={this.state.multimedia[0].name} onClick={(e) => this.props.srcCallback(true, e.target.src, 'image')} />
                       </>
                     )}
                   </Col>
