@@ -67,8 +67,10 @@ export class HomePage extends React.Component {
             <Col md={3} >
               <SideMenuHome />
             </Col>
+
             {this.state.status ? (
               <Col md={6} >
+                
                 <Row className='search-bar ' >
                   <Col md={1}>
                     <img src='https://i.imgur.com/aD2V747.jpeg' alt='profile-pic' />
@@ -77,6 +79,7 @@ export class HomePage extends React.Component {
                     <Button onClick={() => this.publicationModal(true)} className='search-bar add-pub-btn'> Crear publicacion </Button>
                   </Col>
                 </Row>
+
                 <Row>
                   {this.state.publications.map((publication, index) => (
                     <Publication
@@ -89,6 +92,7 @@ export class HomePage extends React.Component {
                     />
                   ))}
                 </Row>
+
               </Col>
             ) : (
               <Col md={6} >
