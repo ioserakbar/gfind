@@ -1,7 +1,7 @@
-import { faEye, faPlay, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { Alert, Carousel, CarouselControl, CarouselIndicators, CarouselItem, Col, NavItem, Row } from 'reactstrap';
+import { Carousel, CarouselControl, CarouselIndicators, CarouselItem, Col, Row } from 'reactstrap';
 
 
 export class PublicationDetail extends React.Component {

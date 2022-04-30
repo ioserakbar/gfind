@@ -1,7 +1,5 @@
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { Button, Card, CardBody, CardHeader, Col, Container, Label, Row } from 'reactstrap';
+import { Button,  Col, Container, Row } from 'reactstrap';
 import { SrcModal } from '../../Resources/srcModal';
 import { CommentsModal } from '../Comments/commentsModal';
 import { Publication } from '../Publicacion/publication';
