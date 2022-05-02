@@ -37,7 +37,7 @@ export const PublicationFormsModal = (props) => {
       setBase64Multimedia((prevImages) => prevImages.concat(jsonBase64))
       setMultimediaJson((prevImages) => prevImages.concat(json2))
       Array.from(e.target.files).map((file) => URL.revokeObjectURL(file));
- 
+
     } else {
       alert('No se pudo cargar el archivo deseado, por favor intente de nuevo');
     }
@@ -49,13 +49,13 @@ export const PublicationFormsModal = (props) => {
     if (cookies.get(constants.CookieIsLogedIn) === 'false') {
       alert("Se necesita iniciar sesion para publicar")
       return;
-    }else if (content === ''  && base64Multimedia.length === 0){
+    } else if (content === '' && base64Multimedia.length === 0) {
       alert("No puedes publicar algo vacio");
       return;
     }
     e.preventDefault()
     setLoading(true);
-   
+
     const userID = cookies.get(constants.CookieUserID);
     let multiArray2 = [];
     let index = 0
@@ -79,7 +79,7 @@ export const PublicationFormsModal = (props) => {
         multiArray2[`${index}`] = multi;
 
         if (index === base64Multimedia.length - 1) {
-          savePublication(multiArray2,content, userID);
+          savePublication(multiArray2, content, userID);
         }
         index++;
       }
@@ -88,7 +88,7 @@ export const PublicationFormsModal = (props) => {
   }
 
 
-  async function savePublication(pMultiArray2,pContent, pUserID ) {
+  async function savePublication(pMultiArray2, pContent, pUserID) {
     var today = moment(new Date()).format('YYYY-MM-DD[T00:00:00Z]');
 
     const body = {
@@ -97,7 +97,6 @@ export const PublicationFormsModal = (props) => {
       content: pContent,
       userID: pUserID
     }
-    console.log(JSON.stringify(body));
 
     const response = await fetch(`http://localhost:3001/api/v1/publication`, {
       method: 'POST',
@@ -109,12 +108,10 @@ export const PublicationFormsModal = (props) => {
     console.log(respJson)
     setLoading(false)
     props.closeCallback(false)
-    if(!respJson.success){
+    if (!respJson.success) {
       props.closeCallback(false);
       alert('Hubo un error subiendo la publicacion, por favor intente de nuevo');
-
     }
-
   }
 
   const renderMultimedia = (source) => {
@@ -145,47 +142,46 @@ export const PublicationFormsModal = (props) => {
 
   }
 
-
-
   return (
     <>
-    {loading && (
-      <div className='loading-modal'>
-        <FontAwesomeIcon icon={faSpinner} />
+      {loading && (
+        <div className='loading-modal'>
+          <FontAwesomeIcon icon={faSpinner} />
+        </div>
+      )}
+      
+      <div className='modal-publication-form'>
+        <Container className='modal-content-publication'>
+          <Card>
+            <CardHeader className='title'>
+              <Label>Publicar</Label>
+              <FontAwesomeIcon className='close-publication-modal' icon={faTimesCircle} onClick={() => props.closeCallback(false)} />
+            </CardHeader>
+            <CardBody className='body'>
+              <form onSubmit={publicate}>
+                <div className='content-input'>
+                  <textarea id='content' type='text' placeholder='¿Que es lo que nos quieres contar?' />
+                </div>
+                <div className='publication-multimedia-modal'>
+                  {multimediaJson ? (
+                    renderMultimedia(multimediaJson)
+                  ) : (
+                    <></>
+                  )}
+                </div>
+                <Label className='bottom-line-modal'></Label>
+                <div className="image-upload">
+                  <label htmlFor="file-input">
+                    <FontAwesomeIcon icon={faFileUpload} />
+                  </label>
+                  <input id="file-input" type="file" multiple accept='.jpeg, .jpg, .png, .bmp, .mp4' onChange={imageHandleChange} />
+                  <input type='submit' className='submit-publication' value='Publicar' />
+                </div>
+              </form>
+            </CardBody>
+          </Card>
+        </Container>
       </div>
-    )}
-    <div className='modal-publication-form'>
-      <Container className='modal-content-publication'>
-        <Card>
-          <CardHeader className='title'>
-            <Label>Publicar</Label>
-            <FontAwesomeIcon className='close-publication-modal' icon={faTimesCircle} onClick={() => props.closeCallback(false)} />
-          </CardHeader>
-          <CardBody className='body'>
-            <form onSubmit={publicate}>
-              <div className='content-input'>
-                <textarea id='content' type='text' placeholder='¿Que es lo que nos quieres contar?' />
-              </div>
-              <div className='publication-multimedia-modal'>
-                {multimediaJson ? (
-                  renderMultimedia(multimediaJson)
-                ) : (
-                  <></>
-                )}
-              </div>
-              <Label className='bottom-line-modal'></Label>
-              <div className="image-upload">
-                <label htmlFor="file-input">
-                  <FontAwesomeIcon icon={faFileUpload} />
-                </label>
-                <input id="file-input" type="file" multiple accept='.jpeg, .jpg, .png, .bmp, .mp4' onChange={imageHandleChange} />
-                <input type='submit' className='submit-publication' value='Publicar' />
-              </div>
-            </form>
-          </CardBody>
-        </Card>
-      </Container>
-    </div>
     </>
 
   );

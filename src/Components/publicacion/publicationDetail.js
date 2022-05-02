@@ -4,6 +4,8 @@ import React from 'react';
 import { Carousel, CarouselControl, CarouselIndicators, CarouselItem, Col, Row } from 'reactstrap';
 
 
+
+
 export class PublicationDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -92,7 +94,7 @@ export class PublicationDetail extends React.Component {
                 onExiting={this.onExiting}
                 onExited={this.onExited}
               >
-                 <FontAwesomeIcon icon={faPlayCircle} />
+                <FontAwesomeIcon icon={faPlayCircle} />
                 <video src={multimedia.path} onClick={(e) => this.props.srcCallback(true, e.target.src, 'video')} />
               </CarouselItem>
             );
