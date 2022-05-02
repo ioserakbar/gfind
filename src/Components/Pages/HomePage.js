@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button,  Col, Container, Row } from 'reactstrap';
 import { SrcModal } from '../../Resources/srcModal';
-import { CommentsModal } from '../Comments/commentsModal';
 import { Publication } from '../Publicacion/publication';
 import { PublicationFormsModal } from '../Publicacion/publicationFormsModal';
 import { PublicationPlaceholder } from '../Publicacion/publicationPlaceholder';
@@ -15,7 +14,6 @@ export class HomePage extends React.Component {
       status: false,
       publications: [],
       modal: false,
-      commentsModal: false,
       publicationModalID: '',
       srcModal: false,
       activeSrc: '',
@@ -40,12 +38,6 @@ export class HomePage extends React.Component {
   publicationModal = (pState) => {
     this.setState({
       modal: pState
-    })
-  }
-
-  commentsModal = (pState) => {
-    this.setState({
-      commentsModal: pState
     })
   }
 
@@ -117,10 +109,6 @@ export class HomePage extends React.Component {
         {this.state.modal && (
           <PublicationFormsModal closeCallback={this.publicationModal} />
         )}
-        {this.state.commentsModal && (
-          <CommentsModal closeCallback={this.commentsModal} />
-        )
-        }
         {this.state.srcModal && (
           <SrcModal src={this.state.activeSrc} type={this.state.srcType} closeCallback={this.srcModal}/>
         )
