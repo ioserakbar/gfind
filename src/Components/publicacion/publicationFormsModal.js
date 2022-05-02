@@ -13,7 +13,6 @@ export const PublicationFormsModal = (props) => {
   const [base64Multimedia, setBase64Multimedia] = useState([]);
   const [loading, setLoading] = useState(false);
 
-
   const imageHandleChange = (e) => {
     if (e.target.files) {
 
@@ -96,23 +95,20 @@ export const PublicationFormsModal = (props) => {
       date: today,
       content: pContent,
       userID: pUserID
-    }
-    console.log(JSON.stringify(body));
-
+    };
+    
     const response = await fetch(`http://localhost:3001/api/v1/publication`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
-    })
+    });
 
     const respJson = await response.json();
-    console.log(respJson)
-    setLoading(false)
-    props.closeCallback(false)
+    setLoading(false);
+    props.closeCallback(false);
     if(!respJson.success){
       props.closeCallback(false);
       alert('Hubo un error subiendo la publicacion, por favor intente de nuevo');
-
     }
 
   }
@@ -142,7 +138,6 @@ export const PublicationFormsModal = (props) => {
         return (<></>)
       }
     })
-
   }
 
 

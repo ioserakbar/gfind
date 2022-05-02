@@ -12,6 +12,23 @@ export class CommentContent extends React.Component {
   }
 
   //<Label> {this.props.content}</Label>
+  async componentDidMount() {
+
+    if(this.state.content || this.state.multimedia){
+      const content = this.props.content;
+      const multimedia = this.state.multimedia;
+
+      const hasMultimedia = multimedia;
+
+      await this.setState({
+        someKey: 'otherValue'
+      });
+    }
+
+   
+  }
+
+
 
   render() {
     return (
@@ -21,15 +38,11 @@ export class CommentContent extends React.Component {
         this.state.hasMultimedia ? (
           <Label>TIENE multimedia </Label>
         ) : (
-          <Label>TIENE contenido </Label>
+          <Label>{this.state.content}</Label>
         )
       )
     );
   }
 
-  componentDidMount() {
-    this.setState({
-      someKey: 'otherValue'
-    });
-  }
+  
 } 
