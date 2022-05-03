@@ -1,8 +1,8 @@
-import { faCaretSquareDown, faFilm, faGamepad, faMessage, faUser, faUserFriends } from '@fortawesome/free-solid-svg-icons';
+import { faCaretSquareDown, faFilm, faGamepad, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { Col, Container, Label, Row } from 'reactstrap';
-import { PublicationPlaceholder } from '../Publicacion/publicationPlaceholder';
+import { Label, Row } from 'reactstrap';
+import { PublicationPlaceholder } from '../publicacion/publicationPlaceholder';
 import { ProfileFriendsPlaceholder } from './profileFriendsPlaceholder';
 import { ProfileGamesPlaceholder } from './profileGamesPlaceholder';
 import { ProfilePlaysPlaceholder } from './profilePlaysPlaceholder';

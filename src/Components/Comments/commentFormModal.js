@@ -30,9 +30,8 @@ export const CommentFormsModal = (props) => {
       setBase64Multimedia(jsonBase64);
       setMultimediaJson(json2);
 
-
-      console.log('file', json2)
-      console.log('64', jsonBase64)
+      console.log(multimediaJson);
+      console.log(base64Multimedia);
 
       Array.from(e.target.files).map((file) => URL.revokeObjectURL(file));
 
@@ -42,6 +41,7 @@ export const CommentFormsModal = (props) => {
   }
 
   async function publicate(e) {
+
     const cookies = new Cookies();
     const content = $('#content').val();
     if (cookies.get(constants.CookieIsLogedIn) === 'false') {
@@ -57,7 +57,8 @@ export const CommentFormsModal = (props) => {
     const userID = cookies.get(constants.CookieUserID);
     var multi = {};
 
-    if (base64Multimedia) {
+    if (!(Object.keys(base64Multimedia).length === 0)) {
+
       var reader = new FileReader();
       reader.readAsDataURL(base64Multimedia.blob);
       reader.onloadend = function () {
@@ -76,6 +77,7 @@ export const CommentFormsModal = (props) => {
       }
     }
     savePublication(multi, content, userID);
+
   }
 
 
@@ -85,7 +87,8 @@ export const CommentFormsModal = (props) => {
     let body = {
       date: today,
       content: pContent,
-      userID: pUserID
+      userID: pUserID,
+      publicationID: props.pubID
     };
 
     if (pMultiArray2)
@@ -101,6 +104,8 @@ export const CommentFormsModal = (props) => {
     setLoading(false);
 
     props.closeCallback(false);
+
+    console.log(respJson);
     if (!respJson.success) {
       props.closeCallback(false);
       alert('Hubo un error subiendo el comentario, por favor intente de nuevo');
@@ -116,11 +121,11 @@ export const CommentFormsModal = (props) => {
   }
 
   const renderMultimedia = (source) => {
-
+  
     if (source['type'] === 'video/mp4') {
 
       return (
-        <div className='single-multimedia' key={source.index}>
+        <div className='single-multimedia' >
           <video src={source.src} controls />
           <FontAwesomeIcon className='delete-button' icon={faTimesCircle} onClick={() => removeMultimedia()} />
         </div>
@@ -129,7 +134,7 @@ export const CommentFormsModal = (props) => {
     } else if (source['type'] === 'image/jpeg' || source['type'] === 'image/jpg' || source['type'] === 'image/png' || source['type'] === 'image/bmp') {
 
       return (
-        <div className='single-multimedia' key={source.index}>
+        <div className='single-multimedia' >
           <img src={source.src} alt='imgMultimedia' />
           <FontAwesomeIcon className='delete-button' icon={faTimesCircle} onClick={() => removeMultimedia()} />
         </div>

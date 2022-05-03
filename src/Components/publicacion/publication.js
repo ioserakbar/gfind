@@ -14,7 +14,7 @@ export class Publication extends Component {
       dataPub: {},
       dataUser: {},
       commentsModal: false,
-      commentsFormModal: true
+      commentsFormModal: false
     };
   }
 
@@ -33,7 +33,7 @@ export class Publication extends Component {
       }
 
       this.forceUpdate();
-    }
+    } 
   }
 
   srcCallback = (pState, pSrc, pType) => {
@@ -46,7 +46,11 @@ export class Publication extends Component {
       commentsModal: pState
     })
   }
-
+  commentsFormModal = (pState) => {
+    this.setState({
+      commentsFormModal: pState
+    });
+  }
   render() {
 
     const { content, multimedia, date, stats, _id } = this.state.dataPub;
@@ -73,7 +77,7 @@ export class Publication extends Component {
               />
             </CardBody>
             <CardFooter className='publication-footer'>
-              <PublicationFooter openComments={() => this.commentsModal(true)} stats={stats} pubID={_id} />
+              <PublicationFooter openComments={() => this.commentsModal(true)} stats={stats} pubID={_id} openFormComment={this.commentsFormModal}/>
             </CardFooter>
           </Card>
         </>

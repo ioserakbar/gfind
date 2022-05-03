@@ -1842,10 +1842,13 @@ body {
 
 .comments-modal .comment-modal-container .comment-content .multimedia {
   text-align: center;
+  display:block;
 }
 
 .comments-modal .comment-modal-container .comment-content .multimedia-content img,
-.comments-modal .comment-modal-container .comment-content .multimedia img {
+.comments-modal .comment-modal-container .comment-content .multimedia img,
+.comments-modal .comment-modal-container .comment-content .multimedia-content video,
+.comments-modal .comment-modal-container .comment-content .multimedia video {
   grid-area: 'image';
   height: 20vh;
   margin: auto;
@@ -2153,6 +2156,7 @@ body {
   left: 0;
   margin: 10px;
 }
+
 .single-multimedia .delete-button:hover {
   transform: scale(1.2);
   transition: .2s;

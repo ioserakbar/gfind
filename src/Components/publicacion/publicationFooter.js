@@ -162,7 +162,7 @@ export class PublicationFooter extends React.Component {
         </Col>
         <Col md={3} className="publication-footer-sendbtns" >
           <Button onClick={(e) => this.uploadTextComment(e)}>Enviar</Button>
-          <FontAwesomeIcon icon={faFileUpload} />
+          <FontAwesomeIcon icon={faFileUpload}  onClick={() => this.props.openFormComment(true)} />
           <FontAwesomeIcon icon={faEye} onClick={() => this.props.openComments(true)} />
         </Col>
         <Col md={3} className="publication-footer-likes">
