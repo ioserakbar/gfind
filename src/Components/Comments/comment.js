@@ -12,7 +12,9 @@ export class Comment extends React.Component {
       content: '',
       stats: '',
       status: false,
-      commentID: ''
+      commentID: '',
+      multimedia: '',
+      date: ''
     };
   }
 
@@ -23,9 +25,11 @@ export class Comment extends React.Component {
 
       await this.setState({
         content: comment.content,
+        multimedia: comment.multimedia,
         stats: comment.stats,
         userID: comment.userID,
         commentID: comment._id,
+        date:comment.date,
         status: true
       });
     }
@@ -38,9 +42,9 @@ export class Comment extends React.Component {
         <>
           <div className='comment-container'>
             <Row className='comment'>
-              <CommentHeader userID={this.state.userID} />
+              <CommentHeader userID={this.state.userID} date={this.state.date}/>
               <Row className='comment-content'>
-                <CommentContent content={this.state.content} />
+                <CommentContent content={this.state.content} multimedia={this.state.multimedia}/>
               </Row>
               <Row className='buttons' >
                 <CommentFooter stats={this.state.stats} commentID={this.state.commentID} />

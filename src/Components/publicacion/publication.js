@@ -4,6 +4,7 @@ import { PublicationDetail } from './publicationDetail';
 import { PublicationHeader } from './publicationHeader';
 import { PublicationFooter } from './publicationFooter';
 import { CommentsModal } from '../Comments/commentsModal';
+import { CommentFormsModal } from '../Comments/commentFormModal';
 
 export class Publication extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ export class Publication extends Component {
       status: false,
       dataPub: {},
       dataUser: {},
-      commentsModal: false
+      commentsModal: false,
+      commentsFormModal: true
     };
   }
 
@@ -52,7 +54,10 @@ export class Publication extends Component {
       this.state.status ? (
         <>
           {this.state.commentsModal && (
-            <CommentsModal closeCallback={this.commentsModal} pubID={_id}/>
+            <CommentsModal closeCallback={this.commentsModal} pubID={_id} />
+          )}
+          {this.state.commentsFormModal && (
+            <CommentFormsModal closeCallback={this.commentsFormModal} pubID={_id} />
           )}
           <Card className='publication' >
             <CardHeader className='publication-header'>

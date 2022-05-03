@@ -13,18 +13,34 @@ export class CommentHeader extends React.Component {
   async componentDidMount() {
 
     if (this.props.userID) {
-      console.log('porp userid', this.props.userID);
+
       const response = await fetch(`http://localhost:3001/api/v1/user/${this.props.userID}`);
       const respJson = await response.json();
-      
+
+      var date = new Date(this.props.date);
+      var hour = this.getAMPM(date);
+      date = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} - ${hour}`
+
       if (respJson.success) {
         await this.setState({
           status: true,
-          dataUser: respJson.Data
+          dataUser: respJson.Data,
+          date: date
         });
       }
     }
     this.forceUpdate();
+  }
+
+  getAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
   }
 
   render() {
@@ -40,7 +56,7 @@ export class CommentHeader extends React.Component {
             <Label>{name}</Label>
           </Col>
           <Col className='fecha'>
-            <Label> 15/04/21  3:50pm</Label>
+            <Label>{this.state.date}</Label>
           </Col>
         </Row>
       ) : (

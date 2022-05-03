@@ -124,7 +124,7 @@ export class PublicationFooter extends React.Component {
   async uploadTextComment(e) {
 
     const contentVal = e.target.parentElement.parentElement.children[0].children[0].value;
-
+    const today = new Date().toISOString();
     if (!this.state.isLogedIn) {
       alert('Necesita iniciar sesion para comentar');
       return;
@@ -137,7 +137,8 @@ export class PublicationFooter extends React.Component {
     const body = {
       publicationID: this.state.pubID,
       userID: userID,
-      content: contentVal
+      content: contentVal,
+      date: today
     }
 
     const response = await fetch(`http://localhost:3001/api/v1/comment/`, {

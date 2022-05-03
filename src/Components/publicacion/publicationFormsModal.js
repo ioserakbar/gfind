@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Card, CardBody, CardHeader, Container, Label } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileUpload, faSpinner, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import constants from '../../constants.json';
 import Cookies from 'universal-cookie';
-import $ from 'jquery'
-import moment from 'moment';
+import $ from 'jquery';
 
 export const PublicationFormsModal = (props) => {
 
   const [multimediaJson, setMultimediaJson] = useState([]);
   const [base64Multimedia, setBase64Multimedia] = useState([]);
   const [loading, setLoading] = useState(false);
+
 
   const imageHandleChange = (e) => {
     if (e.target.files) {
@@ -20,21 +20,39 @@ export const PublicationFormsModal = (props) => {
 
       let json2 = [];
       let jsonBase64 = [];
-      for (let index = 0; index < fileArray.length; index++) {
+
+      let indexMultimedia = 0;
+      for (let i = 0; i < multimediaJson.length; i++) {
         json2.push({
-          src: fileArray[index],
-          type: e.target.files[index].type,
-          key: index
+          src: multimediaJson[i].src,
+          type: multimediaJson[i].type,
+          key: indexMultimedia
+        });
+
+        jsonBase64.push({
+          blob: base64Multimedia[i].blob,
+          key: indexMultimedia
         })
+
+        indexMultimedia++;
       }
 
-      for (let index = 0; index < fileArray.length; index++) {
+      for (let i = 0; i < fileArray.length; i++) {
+        json2.push({
+          src: fileArray[i],
+          type: e.target.files[i].type,
+          key: indexMultimedia
+        });
+
         jsonBase64.push({
-          blob: e.target.files[index]
+          blob: e.target.files[i],
+          key: indexMultimedia
         })
+        indexMultimedia++;
       }
-      setBase64Multimedia((prevImages) => prevImages.concat(jsonBase64))
-      setMultimediaJson((prevImages) => prevImages.concat(json2))
+
+      setBase64Multimedia(jsonBase64);
+      setMultimediaJson(json2);
       Array.from(e.target.files).map((file) => URL.revokeObjectURL(file));
 
     } else {
@@ -58,46 +76,49 @@ export const PublicationFormsModal = (props) => {
     const userID = cookies.get(constants.CookieUserID);
     let multiArray2 = [];
     let index = 0
-    base64Multimedia.forEach(multimedia => {
+    if (base64Multimedia.length !== 0) {
+      base64Multimedia.forEach(multimedia => {
+        var reader = new FileReader();
+        reader.readAsDataURL(multimedia.blob);
+        reader.onloadend = function () {
 
-      var reader = new FileReader();
-      reader.readAsDataURL(multimedia.blob);
-      reader.onloadend = function () {
+          var base64data = reader.result;
 
-        var base64data = reader.result;
+          const parts = base64data.split(';')
+          const mime = parts[0].split(':')[1].split('/')[1];
+          const imgName = "publication";
+          const multimediaData = parts[1].split('base64,').pop();
+          var multi = {};
 
-        const parts = base64data.split(';')
-        const mime = parts[0].split(':')[1].split('/')[1];
-        const imgName = "publication";
-        const multimediaData = parts[1].split('base64,').pop();
-        var multi = {};
+          multi['name'] = imgName;
+          multi['extention'] = mime;
+          multi['path'] = multimediaData;
+          multiArray2[`${index}`] = multi;
 
-        multi['name'] = imgName;
-        multi['extention'] = mime;
-        multi['path'] = multimediaData;
-        multiArray2[`${index}`] = multi;
-
-        if (index === base64Multimedia.length - 1) {
-          savePublication(multiArray2, content, userID);
+          if (index === base64Multimedia.length - 1) {
+            savePublication(multiArray2, content, userID);
+          }
+          index++;
         }
-        index++;
-      }
-    });
+      });
+    } else {
+      savePublication(multiArray2, content, userID);
+    }
 
   }
 
 
   async function savePublication(pMultiArray2, pContent, pUserID) {
-    var today = moment(new Date()).format('YYYY-MM-DD[T00:00:00Z]');
+    var today = new Date().toISOString();
 
-    const body = {
-      multimedia: pMultiArray2,
+    let body = {
       date: today,
       content: pContent,
       userID: pUserID
     };
 
-
+    if (pMultiArray2.length !== 0)
+      body.multimedia = pMultiArray2;
 
     const response = await fetch(`http://localhost:3001/api/v1/publication`, {
       method: 'POST',
@@ -107,11 +128,37 @@ export const PublicationFormsModal = (props) => {
 
     const respJson = await response.json();
     setLoading(false);
+    console.log(respJson);
     props.closeCallback(false);
     if (!respJson.success) {
       props.closeCallback(false);
       alert('Hubo un error subiendo la publicacion, por favor intente de nuevo');
     }
+  }
+
+  const removeMultimedia = (key) => {
+
+    let jsonMultimedia = multimediaJson;
+    let jsonBase64 = base64Multimedia;
+
+    let index = 0;
+    let indexToDelete;
+    jsonBase64.forEach(object => {
+      if (object.key === key) {
+        indexToDelete = index;
+      }
+      index++
+    });
+
+    if (indexToDelete >= 0) {
+      jsonBase64.splice(indexToDelete, 1);
+      jsonMultimedia.splice(indexToDelete, 1);
+      setBase64Multimedia(jsonBase64);
+      setMultimediaJson(jsonMultimedia);
+    } else {
+      alert('Hubo un problema, por favor vuelva a intentarlo');
+    }
+    return;
   }
 
   const renderMultimedia = (source) => {
@@ -122,7 +169,7 @@ export const PublicationFormsModal = (props) => {
         return (
           <div className='single-multimedia' key={multimedia.index}>
             <video src={multimedia.src} controls />
-            <FontAwesomeIcon icon={faTimesCircle} />
+            <FontAwesomeIcon className='delete-button' icon={faTimesCircle} onClick={() => removeMultimedia(multimedia.key)} />
           </div>
         )
 
@@ -131,7 +178,7 @@ export const PublicationFormsModal = (props) => {
         return (
           <div className='single-multimedia' key={multimedia.index}>
             <img src={multimedia.src} alt='imgMultimedia' />
-            <FontAwesomeIcon icon={faTimesCircle} />
+            <FontAwesomeIcon className='delete-button' icon={faTimesCircle} onClick={() => removeMultimedia(multimedia.key)} />
           </div>
         )
 
