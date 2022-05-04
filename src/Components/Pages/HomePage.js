@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button,  Col, Container, Row } from 'reactstrap';
 import { SrcModal } from '../../Resources/srcModal';
-import { Publication } from '../publicacion/publication';
-import { PublicationFormsModal } from '../publicacion/publicationFormsModal';
-import { PublicationPlaceholder } from '../publicacion/publicationPlaceholder';
+import { Publication } from '../Publicacion/publication';
+import { PublicationFormsModal } from '../Publicacion/publicationFormsModal';
+import { PublicationPlaceholder } from '../Publicacion/publicationPlaceholder';
 import { SideMenuHome } from '../SideMenuHome/sideMenuHome';
 
 

@@ -35,18 +35,49 @@ export function PublicationHeader(props) {
   async function calcDateSince(pDate) {
     var date = new Date(pDate);
     const dateNow = new Date();
+
     var dateNowString = `${dateNow.getFullYear()}-${dateNow.getMonth()}-${dateNow.getDate()}`;
     var dateString = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+
     const date1 = new Date(dateNowString);
     const date2 = new Date(dateString);
 
-    const result = date1 - date2;
+    var result = date1 - date2;
     const diffDays = Math.ceil(result / (1000 * 60 * 60 * 24));
+
+    date1.setHours(dateNow.getHours());
+    date1.setMinutes(dateNow.getMinutes());
+    date1.setSeconds(dateNow.getSeconds());
+
+    date2.setHours(date.getHours());
+    date2.setMinutes(date.getMinutes());
+    date2.setSeconds(date.getSeconds());
+
+    result = date1 - date2;
+    var diffSeconds = result / 1000;
     let sinceMessage = '';
 
-
-    if (diffDays === 0) //PUBLICADO EL MISMO DIA
-      sinceMessage = 'Hoy';
+    if (diffDays === 0) {//PUBLICADO EL MISMO DIA
+      const minutes = Math.round(diffSeconds / 60);
+      const hours = Math.round(minutes / 60);
+      if (diffSeconds < 60) {
+        if (diffSeconds === 1)
+          sinceMessage = 'Hace un segundo';
+        else
+          sinceMessage = `Hace ${diffSeconds} segundos`;
+      }
+      else if (minutes > 0 && minutes < 60) {
+        if (minutes === 1)
+          sinceMessage = 'Hace un minuto';
+        else
+          sinceMessage = `Hace ${minutes} minutos`;
+      } else if (hours > 0 && hours < 24) {
+        if (hours === 1)
+          sinceMessage = 'Hace una hora';
+        else
+          sinceMessage = `Hace ${hours} horas`;
+      }
+    }
     else if (diffDays <= 7) { //PUBLICADO HACE 1-7 DIAS
       if (diffDays === 1)
         sinceMessage = 'Ayer';

@@ -2,7 +2,7 @@ import { faCaretSquareDown, faFilm, faGamepad, faUserFriends } from '@fortawesom
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Label, Row } from 'reactstrap';
-import { PublicationPlaceholder } from '../publicacion/publicationPlaceholder';
+import { PublicationPlaceholder } from '../Publicacion/publicationPlaceholder';
 import { ProfileFriendsPlaceholder } from './profileFriendsPlaceholder';
 import { ProfileGamesPlaceholder } from './profileGamesPlaceholder';
 import { ProfilePlaysPlaceholder } from './profilePlaysPlaceholder';
