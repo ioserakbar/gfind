@@ -1,6 +1,8 @@
 import React from "react";
 import { Label } from "reactstrap";
 import { SrcModal } from "../../Resources/srcModal";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlayCircle } from "@fortawesome/free-solid-svg-icons";
 
 export class CommentContent extends React.Component {
   constructor(props) {
@@ -60,7 +62,12 @@ export class CommentContent extends React.Component {
 
     const multimedia = this.state.multimedia && (
       this.state.multimedia.extention === 'mp4' || this.state.multimedia.extention === 'mkv' ? (
-        <video src={this.state.multimedia.path} muted onClick={() => this.srcModal(true)} />
+        <>
+          <div className="comment-video">
+            <FontAwesomeIcon icon={faPlayCircle} className='play-svg' />
+            <video src={this.state.multimedia.path} muted onClick={() => this.srcModal(true)} />
+          </div>
+        </>
       ) : (
         <img src={this.state.multimedia.path} alt='comment-pic' onClick={() => this.srcModal(true)} />
       )
