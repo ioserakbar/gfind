@@ -1,4 +1,4 @@
-import { faEllipsisH, faMessage } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisH, faMessage, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import ReactCountryFlag from 'react-country-flag';
@@ -11,6 +11,7 @@ export const ProfileHeader = (props) => {
   const [countryName, setCountryName] = useState('');
   const [gotCountry, setGotCountry] = useState(false);
   const [drop, setDrop] = useState(false);
+  const [isFriend, setIsFriend] = useState(false)
 
   useEffect(() => {
     async function getCountry() {
@@ -55,7 +56,7 @@ export const ProfileHeader = (props) => {
                     <DropdownItem >Editar foto de fondo</DropdownItem>
                     <DropdownItem >Editar foto de perfil</DropdownItem>
                     <DropdownItem >Editar descripcion</DropdownItem>
-                    <DropdownItem divider/>
+                    <DropdownItem divider />
                     <DropdownItem disabled>Editar informacion</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
@@ -69,6 +70,11 @@ export const ProfileHeader = (props) => {
             {!props.isMine && (
               <Label className='message'>
                 <FontAwesomeIcon icon={faMessage} />
+              </Label>
+            )}
+            {!props.isFriend && (
+              <Label className='message'>
+                <FontAwesomeIcon icon={faUserPlus} />
               </Label>
             )}
           </Label>

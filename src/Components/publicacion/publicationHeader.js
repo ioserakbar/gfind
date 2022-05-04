@@ -9,16 +9,20 @@ export function PublicationHeader(props) {
   const [data, setData] = useState({});
   const [since, setSince] = useState('');
   const [datePub, setDate] = useState('');
+  const [gotProps, setGotProps] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('akej');
     setData(props.data);
     setDate(calcDate(props.date));
+    calcDateSince(props.date);
     setStatus(true);
-  }, [props])
+    setGotProps(true);
+  }, [])
 
   const toProfile = () => {
-    navigate(`/Profile/${this.state.data._id}`);
+    navigate(`/Profile/${data._id}`);
   }
 
   function calcDate(pDate) {
@@ -60,18 +64,18 @@ export function PublicationHeader(props) {
     if (diffDays === 0) {//PUBLICADO EL MISMO DIA
       const minutes = Math.round(diffSeconds / 60);
       const hours = Math.round(minutes / 60);
-      if (diffSeconds < 60) {
+      if (diffSeconds < 60) { //SEGUNDOS
         if (diffSeconds === 1)
           sinceMessage = 'Hace un segundo';
         else
           sinceMessage = `Hace ${diffSeconds} segundos`;
       }
-      else if (minutes > 0 && minutes < 60) {
+      else if (minutes > 0 && minutes < 60) {//MINUTOS
         if (minutes === 1)
           sinceMessage = 'Hace un minuto';
         else
           sinceMessage = `Hace ${minutes} minutos`;
-      } else if (hours > 0 && hours < 24) {
+      } else if (hours > 0 && hours < 24) {//HORAS
         if (hours === 1)
           sinceMessage = 'Hace una hora';
         else
@@ -135,7 +139,7 @@ export function PublicationHeader(props) {
         <Col md={7} className='user-name'>
           <Label>{data.name}</Label>
           <br ></br>
-          <small>{calcDateSince(since)}</small>
+          <small>{since}</small>
         </Col>
         <Col md={3} className="publication-date" >
           <Label>{datePub}</Label>
