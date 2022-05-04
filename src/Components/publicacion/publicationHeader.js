@@ -1,35 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Col, Label, Row } from 'reactstrap';
 
 
-export class PublicationHeader extends React.Component {
-  constructor(props) {
-    super(props);
+export function PublicationHeader(props) {
 
-    this.state = {
-      status: false,
-      data: {},
-      since: '',
-      date: '',
-    };
+  const [status, setStatus] = useState(false);
+  const [data, setData] = useState({});
+  const [since, setSince] = useState('');
+  const [datePub, setDate] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setData(props.data);
+    setDate(calcDate(props.date));
+    setStatus(true);
+  }, [props])
+
+  const toProfile = () => {
+    navigate(`/Profile/${this.state.data._id}`);
   }
 
-
-  async componentDidMount() {
-    if (this.props) {
-      const date = this.calcDate(this.props.date);
-      this.calcDateSince(this.props.date);
-      await this.setState({
-        status: true,
-        data: this.props.data,
-        date: date
-      })
-      this.forceUpdate();
-    }
-  }
-
-
-  calcDate(pDate) {
+  function calcDate(pDate) {
     var date = new Date(pDate);
     const monthString = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
@@ -40,7 +32,7 @@ export class PublicationHeader extends React.Component {
     return `El ${day} de ${month} de ${year}`;
   }
 
-  async calcDateSince(pDate) {
+  async function calcDateSince(pDate) {
     var date = new Date(pDate);
     const dateNow = new Date();
     var dateNowString = `${dateNow.getFullYear()}-${dateNow.getMonth()}-${dateNow.getDate()}`;
@@ -89,46 +81,41 @@ export class PublicationHeader extends React.Component {
         sinceMessage = `Hace ${daysinMonths} meses`;
     } else {
       const daysInYears = Math.round(diffDays / 365);
-      if(daysInYears === 1)
+      if (daysInYears === 1)
         sinceMessage = `Hace un año`
       else if (daysInYears === 2)
-        sinceMessage  = `El año pasado`
-        else if (daysInYears === 3)
+        sinceMessage = `El año pasado`
+      else if (daysInYears === 3)
         sinceMessage = `El año antepasado`
-        else 
-          sinceMessage = `Hace ${daysInYears} años`
+      else
+        sinceMessage = `Hace ${daysInYears} años`
     }
 
-    await this.setState({
-      since: sinceMessage
-    })
+    setSince(sinceMessage);
   }
 
 
-  render() {
-
-    const { profilePic, name } = this.state.data;
-    return (
-      this.state.status ? (
-        <Row className='publication-header-row'>
-          <Col md={1} className='user-img' >
-            <img src={profilePic.path} alt="pfp" />
-          </Col>
-          <Col md={7} className='user-name'>
-            <Label>{name}</Label>
-            <br ></br>
-            <small>{this.state.since}</small>
-          </Col>
-          <Col md={3} className="publication-date" >
-            <Label>{this.state.date}</Label>
-          </Col>
-        </Row>
-      ) : (
-        <div> Placeholder</div>
-      )
-    );
-  }
-
-
+  return (
+    status ? (
+      <Row className='publication-header-row'>
+        <Col md={1} className='user-img' >
+          <img src={data.profilePic.path} alt="pfp" onClick={toProfile} />
+        </Col>
+        <Col md={7} className='user-name'>
+          <Label>{data.name}</Label>
+          <br ></br>
+          <small>{calcDateSince(since)}</small>
+        </Col>
+        <Col md={3} className="publication-date" >
+          <Label>{datePub}</Label>
+        </Col>
+      </Row>
+    ) : (
+      <div> Placeholder</div>
+    )
+  );
 }
+
+
+
 
