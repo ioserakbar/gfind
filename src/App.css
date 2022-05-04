@@ -245,18 +245,18 @@ body {
   height: 350px;
 }
 
-.comment-video{
-  position:relative;
+.comment-video {
+  position: relative;
   width: fit-content;
   height: fit-content;
   text-align: center;
 }
 
-.comment-video svg{
+.comment-video svg {
   grid-area: 'image';
   position: absolute;
   font-size: 70px;
-  margin-left:35%;
+  margin-left: 35%;
   transform: translateY(80%);
   color: var(--accent-line-color);
   filter: opacity(50%);
@@ -1867,7 +1867,7 @@ body {
 .comments-modal .comment-modal-container .comment-content .multimedia img,
 .comments-modal .comment-modal-container .comment-content .multimedia-content video,
 .comments-modal .comment-modal-container .comment-content .multimedia video {
-  
+
   height: 20vh;
   margin: auto;
   cursor: pointer;
@@ -2048,11 +2048,16 @@ body {
 
 
 .profile .profile-content .info {
-  width: 45%;
+  width: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   margin-bottom: 5px;
   margin-top: -20px;
-  margin-left: 80% !important;
+  margin-left: 60% !important;
+}
 
+.profile .profile-content .info label {
+  width: fit-content;
 }
 
 .profile .profile-content .header label {
@@ -2077,12 +2082,14 @@ body {
   margin-left: 20px;
 }
 
-.profile .profile-content .header label .message {
+.profile .profile-content .header label .message,
+.profile .profile-content .header label .friend {
   font-size: 40px;
   cursor: pointer;
 }
 
-.profile .profile-content .header label .message:hover {
+.profile .profile-content .header label .message:hover,
+.profile .profile-content .header label .friend:hover {
   transform: scale(1.2);
   transition: .2s;
 }

@@ -26,7 +26,7 @@ export const ProfileHeader = (props) => {
       }
     }
     getCountry();
-  });
+  }, []);
 
   const toggleDrop = () => {
     setDrop(!drop);
@@ -65,18 +65,18 @@ export const ProfileHeader = (props) => {
 
           </Label>
           <Label className='info'>
-            <Label className='age'>{props.age} años</Label>
-            <Label className='country'>{countryName}<ReactCountryFlag countryCode={props.country} svg /></Label>
             {!props.isMine && (
               <Label className='message'>
                 <FontAwesomeIcon icon={faMessage} />
               </Label>
             )}
-            {!props.isFriend && (
-              <Label className='message'>
+            {!props.isFriend && !props.isMine && (
+              <Label className='friend'>
                 <FontAwesomeIcon icon={faUserPlus} />
               </Label>
             )}
+            <Label className='age'>{props.age} años</Label>
+            <Label className='country'>{countryName}<ReactCountryFlag countryCode={props.country} svg /></Label>
           </Label>
         </Row>
         <Row className='description'>

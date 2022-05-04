@@ -21,6 +21,8 @@ export class Publication extends Component {
   async componentDidMount() {
 
     if (this.props.dataPub) {
+
+      
       const response = await fetch(`http://localhost:3001/api/v1/user/${this.props.dataPub.userID}`);
       const respJson = await response.json();
 
@@ -74,7 +76,7 @@ export class Publication extends Component {
                 multimedia={multimedia}
                 content={content}
                 srcCallback={this.srcCallback}
-              />
+              /> 
             </CardBody>
             <CardFooter className='publication-footer'>
               <PublicationFooter openComments={() => this.commentsModal(true)} stats={stats} pubID={_id} openFormComment={this.commentsFormModal}/>

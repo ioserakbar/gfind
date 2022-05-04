@@ -2,20 +2,28 @@ import { faCaretSquareDown, faFilm, faGamepad, faUserFriends } from '@fortawesom
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Row } from 'reactstrap';
-import { PublicationPlaceholder } from '../Publicacion/publicationPlaceholder';
 import { ProfileFriendsPlaceholder } from './profileFriendsPlaceholder';
 import { ProfileGamesPlaceholder } from './profileGamesPlaceholder';
 import { ProfilePlaysPlaceholder } from './profilePlaysPlaceholder';
+import { ProfilePublication } from './profilePublications';
 
 export class ProfileContent extends React.Component {
   constructor() {
     super();
     this.state = {
       mode: 'publication',
-      isMine: false
+      isMine: false,
+      userID:'',
     };
   }
 
+  async componentDidMount(){
+    if(this.props.userID ){
+      await this.setState({
+        userID: this.props.userID
+      })
+    }
+  }
 
   changeMode(pmode) {
     this.setState({
@@ -28,9 +36,9 @@ export class ProfileContent extends React.Component {
 
     var content;
     if (this.state.mode === 'publication')
-      content = (
+      content = ( 
         <>
-          <PublicationPlaceholder />
+          <ProfilePublication owner={this.state.userID}/>
         </>
       );
 

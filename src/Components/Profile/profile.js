@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Container, Label } from 'reactstrap';
 import Cookies from 'universal-cookie';
 import { ProfileContent } from './profileContent';
@@ -20,19 +20,20 @@ function Profile(props) {
   const [age, setAge] = useState('');
   const [userID, setUserID] = useState('');
   const [country, setCountry] = useState('');
+  const [gotInfo, setGotInfo] = useState(false);
 
 
   useEffect(() => {
 
     async function getUser() {
-      const cookie = new Cookies();
-      const isLogedIn = cookie.get(constants.CookieIsLogedIn);
-      if (isLogedIn) {
+      if (!gotInfo) {
+        const cookie = new Cookies();
+        const isLogedIn = cookie.get(constants.CookieIsLogedIn);
+        let userSessionID;
+        if (isLogedIn)
+          userSessionID = cookie.get(constants.CookieUserID);
 
-        const userSessionID = cookie.get(constants.CookieUserID);
-        const userID = cookie.get(constants.CookieUserID);
-
-        const response = await fetch(`http://localhost:3001/api/v1/user/${userID}`);
+        const response = await fetch(`http://localhost:3001/api/v1/user/${userProfileID}`);
         const respJson = await response.json();
 
         if (respJson.success) {
@@ -40,7 +41,8 @@ function Profile(props) {
           if (userSessionID === userProfileID) {
             setIsMine(true)
           }
-          setUserID(userID);
+
+          setUserID(userSessionID);
           const data = respJson.Data;
           setState(true);
           setProfileImage(data.profilePic);
@@ -51,7 +53,9 @@ function Profile(props) {
           setAge(data.age);
         }
 
+        setGotInfo(true);
       }
+
     }
     getUser();
 
@@ -67,12 +71,11 @@ function Profile(props) {
         <Container className='profile'>
           <ProfileHeader profilePic={profileImage} backgroundPic={backgroundPic} name={name} description={description} isMine={isMine} country={country} age={age} />
           <Label className='bottom-line-profile-true' />
-          <ProfileContent />
+          <ProfileContent userID={userProfileID}  isMine={isMine}/>
         </Container>
       </>
     ) : (
       <>
-
         <Container className='profile'>
           <ProfilePlaceholder />
         </Container>
