@@ -13,14 +13,15 @@ export class ProfileContent extends React.Component {
     this.state = {
       mode: 'publication',
       isMine: false,
-      userID:'',
+      userID: '',
     };
   }
 
-  async componentDidMount(){
-    if(this.props.userID ){
+  async componentDidMount() {
+    if (this.props.userID) {
       await this.setState({
-        userID: this.props.userID
+        userID: this.props.userID,
+        isMine: this.props.isMine
       })
     }
   }
@@ -36,28 +37,27 @@ export class ProfileContent extends React.Component {
 
     var content;
     if (this.state.mode === 'publication')
-      content = ( 
+      content = (
         <>
-          <ProfilePublication owner={this.state.userID}/>
+          <ProfilePublication owner={this.state.userID} isMine={this.state.isMine} />
         </>
       );
-
     else if (this.state.mode === 'plays')
       content = (
         <>
-          <ProfilePlaysPlaceholder/>
+          <ProfilePlaysPlaceholder />
         </>
       );
     else if (this.state.mode === 'games')
       content = (
         <>
-          <ProfileGamesPlaceholder/>
+          <ProfileGamesPlaceholder />
         </>
       );
     else if (this.state.mode === 'friends')
       content = (
         <>
-          <ProfileFriendsPlaceholder/>
+          <ProfileFriendsPlaceholder />
         </>
       );
     else

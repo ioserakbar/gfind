@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { CommentsModal } from '../Comments/commentsModal';
+import { Button, Col, Row } from 'reactstrap';
 import { Publication } from '../Publicacion/publication';
+import { PublicationFormsModal } from '../Publicacion/publicationFormsModal';
 import { PublicationPlaceholder } from '../Publicacion/publicationPlaceholder';
 
 
@@ -10,12 +11,9 @@ export function ProfilePublication(props) {
   const [state, setState] = useState(false)
   const [userID, setUserID] = useState('')
   const [publications, setPublications] = useState([]);
-  const [isMine, setIsMine] = useState(false);
+  const [isMine, setIsMine] = useState(true);
   const [gotInfo, setGotInfo] = useState(false);
-  const [commentModal, setCommentModal] = useState(false);
-  const [commentFormModal, setCommentFormModal] = useState(false);
-
-
+  const [publicationFormModal, setPublicationFormModal] = useState(false);
 
   useEffect(() => {
     async function getPublications() {
@@ -24,42 +22,50 @@ export function ProfilePublication(props) {
       setUserID(props.owner);
       const response = await fetch(`http://localhost:3001/api/v1/publication/user/${userID}`);
       const respJson = await response.json();
-
-      if (respJson.sucess) {
-        setState(false);
-        setIsMine(props.isMine());
+      console.log(respJson);
+      if (respJson.success) {
+        setState(true);
+        setIsMine(props.isMine);
         setPublications(respJson.Data)
+        setGotInfo(true);
       }
-      setGotInfo(true);
     }
 
     if (!gotInfo)
       getPublications();
+  })
 
 
-  }, [])
+  const publicationModal = () => {
+    setPublicationFormModal(!publicationFormModal);
+  }
 
 
   return (
-    commentModal && (
-      <CommentsModal />
-    ),
-    commentFormModal && (
-      <commentFormModal />
-    ),
     state ? (
       <>
-        {publications.map((publication, index) => (
-          <Publication
-            key={index}
-            id={publication._id}
-            dataPub={publication}
-            userID={publication.userID}
-            commentsCallback={this.commentsModal}
-            srcCallback={this.srcModal}
-          />
-        ))}
-
+        {publicationFormModal && (
+          <PublicationFormsModal closeCallback={publicationModal} />
+        )}
+        <div className='profile-publications'>
+          {isMine && (
+            <>
+              <Row className='search-bar' >
+                <Col md={11}>
+                  <Button onClick={publicationModal} className='search-bar add-pub-btn'> Crear publicacion </Button>
+                </Col>
+              </Row>
+            </>
+          )}
+          {publications.map((publication, index) => (
+            <Publication
+              key={index}
+              id={publication._id}
+              dataPub={publication}
+              userID={publication.userID}
+            />
+          ))}
+        </div>
       </>
     ) : (
       <>

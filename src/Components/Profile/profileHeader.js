@@ -16,17 +16,17 @@ export const ProfileHeader = (props) => {
   useEffect(() => {
     async function getCountry() {
       if (!gotCountry) {
-        const response = await fetch(`https://restcountries.com/v3.1/alpha/${props.country}`);
+        const country = props.country;
+        const response = await fetch(`https://restcountries.com/v3.1/alpha/${country}`);
         const respJson = await response.json();
-        console.log(respJson);
-        if (respJson) {
+        if (respJson[0].name.common) {
           setCountryName(respJson[0].name.common)
           setGotCountry(true);
         }
       }
     }
     getCountry();
-  }, []);
+  });
 
   const toggleDrop = () => {
     setDrop(!drop);

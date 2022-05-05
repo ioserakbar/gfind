@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button,  Col, Container, Row } from 'reactstrap';
+import { Button, Col, Container, Row } from 'reactstrap';
 import { SrcModal } from '../../Resources/srcModal';
 import { Publication } from '../Publicacion/publication';
 import { PublicationFormsModal } from '../Publicacion/publicationFormsModal';
@@ -47,8 +47,8 @@ export class HomePage extends React.Component {
       activeSrc: pSrc,
       srcType: pType
     })
-  } 
-  
+  }
+
   render() {
     return (
       <>
@@ -61,14 +61,11 @@ export class HomePage extends React.Component {
             {this.state.status ? (
               <Col md={6} >
                 
-                <Row className='search-bar ' >
-                  <Col md={1}>
-                    <img src='https://i.imgur.com/aD2V747.jpeg' alt='profile-pic' />
-                  </Col>
-                  <Col md={10}>
-                    <Button onClick={() => this.publicationModal(true)} className='search-bar add-pub-btn'> Crear publicacion </Button>
-                  </Col>
-                </Row>
+                  <Row className='search-bar' >
+                    <Col md={11}>
+                      <Button onClick={() => this.publicationModal(true)} className='search-bar add-pub-btn'> Crear publicacion </Button>
+                    </Col>
+                  </Row>
 
                 <Row>
                   {this.state.publications.map((publication, index) => (
@@ -110,7 +107,7 @@ export class HomePage extends React.Component {
           <PublicationFormsModal closeCallback={this.publicationModal} />
         )}
         {this.state.srcModal && (
-          <SrcModal src={this.state.activeSrc} type={this.state.srcType} closeCallback={this.srcModal}/>
+          <SrcModal src={this.state.activeSrc} type={this.state.srcType} closeCallback={this.srcModal} />
         )
         }
       </>
