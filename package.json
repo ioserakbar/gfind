@@ -17,6 +17,7 @@
     "mdb-ui-kit": "^4.0.0",
     "moment": "^2.29.3",
     "react": "^17.0.0",
+    "react-beautiful-dnd": "^13.1.0",
     "react-country-flag": "^3.0.2",
     "react-dom": "^17.0.0",
     "react-image-crop": "^9.1.1",

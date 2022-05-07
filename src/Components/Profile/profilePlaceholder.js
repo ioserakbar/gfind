@@ -4,10 +4,11 @@ import React from 'react';
 import { Label, Row } from 'reactstrap';
 import { PublicationPlaceholder } from '../Publicacion/publicationPlaceholder';
 import { ProfileFriendsPlaceholder } from './profileFriendsPlaceholder';
-import { ProfileGamesPlaceholder } from './profileGamesPlaceholder';
-import { ProfilePlaysPlaceholder } from './profilePlaysPlaceholder';
+import { GamesPlaceholder, ProfileGamesPlaceholder } from './gamesFragment/gamesPlaceholder';
+import { PlaysPlaceholder } from './playsFragment/playsPlaceholder';
 
 class ProfilePlaceholder extends React.Component {
+  
   constructor() {
     super();
     this.state = {
@@ -16,14 +17,11 @@ class ProfilePlaceholder extends React.Component {
     };
   }
 
-
   changeMode(pmode) {
     this.setState({
       mode: pmode
     });
   }
-
-
 
   render() {
 
@@ -41,19 +39,19 @@ class ProfilePlaceholder extends React.Component {
     else if (this.state.mode === 'plays')
       content = (
         <>
-          <ProfilePlaysPlaceholder/>
+          <PlaysPlaceholder />
         </>
       );
     else if (this.state.mode === 'games')
       content = (
         <>
-          <ProfileGamesPlaceholder/>
+          <GamesPlaceholder />
         </>
       );
     else if (this.state.mode === 'friends')
       content = (
         <>
-          <ProfileFriendsPlaceholder/>
+          <ProfileFriendsPlaceholder />
         </>
       );
     else
@@ -91,7 +89,7 @@ class ProfilePlaceholder extends React.Component {
       </>
     );
   }
-  
+
 }
 
 export default ProfilePlaceholder;

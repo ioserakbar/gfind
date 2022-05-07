@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Container, Label, Row } from 'reactstrap';
 
-export class ProfileGamesPlaceholder extends React.Component {
+export class GamesPlaceholder extends React.Component {
 
   render() {
 
@@ -27,13 +27,15 @@ export class ProfileGamesPlaceholder extends React.Component {
     );
 
     return (
-      <Container className='games-container'>
-        {comp}
-        {comp}
-        {comp}
-        {comp}
-        {comp}
-      </Container>
+      <div className='profile-publications'>
+        <Container className='games-container'>
+          {comp}
+          {comp}
+          {comp}
+          {comp}
+          {comp}
+        </Container>
+      </div>
     );
   }
 

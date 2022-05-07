@@ -13,6 +13,7 @@ import { Navbar } from './Components/Pages/Navbar';
 import { LogInPage } from './Components/Pages/LogInPage';
 import Cookies from 'universal-cookie';
 import constants from './constants.json'
+import GameController from './Components/Pages/GameController';
 
 export class App extends React.Component {
   constructor(props) {
@@ -48,6 +49,7 @@ export class App extends React.Component {
             <Route exact path='/CreateAccount' element={<CreateAccountPage />}></Route>
             <Route exact path='/LogIn' element={<LogInPage />}></Route>
             <Route path='/Profile/:userID' element={<ProfilePage />}></Route>
+            <Route exact path='/GameController' element={<GameController />}></Route>
           </Routes>
         </Router>
       </div>

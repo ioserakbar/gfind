@@ -3,9 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Row } from 'reactstrap';
 import { ProfileFriendsPlaceholder } from './profileFriendsPlaceholder';
-import { ProfileGamesPlaceholder } from './profileGamesPlaceholder';
-import { ProfilePlaysPlaceholder } from './profilePlaysPlaceholder';
+import { ProfileGamesPlaceholder } from './gamesFragment/gamesPlaceholder';
+import { Plays } from './playsFragment/playFragment';
 import { ProfilePublication } from './profilePublications';
+import { GamesFragment } from './gamesFragment/gamesFragment';
 
 export class ProfileContent extends React.Component {
   constructor() {
@@ -45,13 +46,13 @@ export class ProfileContent extends React.Component {
     else if (this.state.mode === 'plays')
       content = (
         <>
-          <ProfilePlaysPlaceholder />
+          <Plays isMine={this.state.isMine} profileUser={this.state.userID}/>
         </>
       );
     else if (this.state.mode === 'games')
       content = (
         <>
-          <ProfileGamesPlaceholder />
+          <GamesFragment />
         </>
       );
     else if (this.state.mode === 'friends')

@@ -1066,7 +1066,8 @@ body {
   width: 100%;
 }
 
-.session-container .create-account-forms .second-Row .pais select {
+.session-container .create-account-forms .second-Row .pais select,
+.game-select select {
   width: 100%;
   border: none;
   padding: 0;
@@ -1772,7 +1773,8 @@ body {
 }
 
 
-.comments-modal {
+.comments-modal,
+.plays-modal {
   display: block;
   position: fixed;
   z-index: 4;
@@ -1785,7 +1787,8 @@ body {
   background-color: rgba(0, 0, 0, .8);
 }
 
-.comments-modal .comment-modal-container {
+.comments-modal .comment-modal-container,
+.plays-modal .plays-modal-container {
   position: relative;
   background-color: #fefefe;
   padding: 0px;
@@ -1796,19 +1799,22 @@ body {
   overflow: hidden;
 }
 
-.comments-modal .comment-modal-container .body {
+.comments-modal .comment-modal-container .body,
+.plays-modal .plays-modal-container .body {
   max-height: 80vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-.comments-modal .comment-modal-container .header {
+.comments-modal .comment-modal-container .header,
+.plays-modal .plays-modal-container .header {
   text-align: center;
   font-size: 30px;
   font-weight: 600;
 }
 
-.comments-modal .comment-modal-container .header svg {
+.comments-modal .comment-modal-container .header svg,
+.plays-modal .plays-modal-container .header svg {
   float: right;
   cursor: pointer;
 }
@@ -2208,4 +2214,97 @@ body {
   transform: scale(1.2);
   transition: .2s;
   color: rgb(128, 0, 0);
+}
+
+.plays-modal .plays-modal-container .header img {
+  width: 50px;
+  height: 50px;
+  float: left;
+}
+
+.plays-modal .plays-modal-container {
+  height: 85vh;
+}
+
+.plays-modal .plays-modal-container .body video {
+  width: 100%;
+  max-height: 65vh;
+  border-radius: 10px;
+}
+
+.plays-modal .plays-modal-container .body label {
+  font-size: 20px;
+}
+
+.game-controller {
+  position: absolute;
+  top: 60px;
+  width: 100%;
+}
+
+.game-controller .add-game-form {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  display: block;
+}
+
+.game-controller .add-game-form input {
+  font-size: 20px;
+  padding-left: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: #bababa;
+  outline: none;
+  margin: 8px;
+}
+.game-controller .add-game-form .game-icon{
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  top:10vh;
+}
+.game-controller .add-game-form .left{
+ left: 20%;
+}
+
+.game-controller .add-game-form .right{
+ right: 20%; 
+}
+
+.game-controller .add-game-form label {
+  font-size: 25px;
+  margin-right: 20px;
+}
+
+.game-controller .add-game-form svg {
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.game-controller .add-game-form input[type='file'] {
+  display: none;
+}
+
+.game-controller .add-game-form #Rankeds {
+  text-align: center;
+  align-items: center;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  list-style: none;
+}
+
+.game-controller .add-game-form #Rankeds .individual-ranked {
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, .8);
+  margin: 10px;
+}
+
+.game-controller .add-game-form #Rankeds .individual-ranked img{
+  width: 100px;
+  height: 100px;
 }
