@@ -26,8 +26,8 @@ export const Plays = (props) => {
       const respJson = await response.json();
 
       if (respJson.success) {
-        setPlays(respJson.Data)
-      } 
+        setPlays(respJson.Data);
+      }
     }
 
     setState(true);

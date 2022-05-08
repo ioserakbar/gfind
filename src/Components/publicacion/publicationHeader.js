@@ -13,7 +13,7 @@ export function PublicationHeader(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('akej');
+    
     setData(props.data);
     setDate(calcDate(props.date));
     calcDateSince(props.date);

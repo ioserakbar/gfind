@@ -21,6 +21,7 @@ function Profile(props) {
   const [userID, setUserID] = useState('');
   const [country, setCountry] = useState('');
   const [gotInfo, setGotInfo] = useState(false);
+  const [games, setGames] = useState([]);
 
 
   useEffect(() => {
@@ -43,25 +44,22 @@ function Profile(props) {
           }
 
           setUserID(userSessionID);
-          const data = respJson.Data;
+          setProfileImage(respJson.Data.profilePic);
+          setName(respJson.Data.name);
+          setDescription(respJson.Data.description);
+          setbackgroundPic(respJson.Data.backgroundImg);
+          setCountry(respJson.Data.countryID);
+          setAge(respJson.Data.age);
+          setGames(respJson.Data.favoriteGames);
           setState(true);
-          setProfileImage(data.profilePic);
-          setName(data.name);
-          setDescription(data.description);
-          setbackgroundPic(data.backgroundImg);
-          setCountry(data.countryID);
-          setAge(data.age);
         }
 
         setGotInfo(true);
+        
       }
 
     }
     getUser();
-
-    return () => {
-
-    }
   }, [])
 
 
@@ -71,8 +69,8 @@ function Profile(props) {
         <Container className='profile'>
           <ProfileHeader profilePic={profileImage} backgroundPic={backgroundPic} name={name} description={description} isMine={isMine} country={country} age={age} />
           <Label className='bottom-line-profile-true' />
-          <ProfileContent userID={userProfileID}  isMine={isMine}/>
-        </Container>
+          <ProfileContent userID={userProfileID}  isMine={isMine} games={games}/>
+        </Container> 
       </>
     ) : (
       <>

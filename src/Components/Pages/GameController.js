@@ -1,8 +1,9 @@
-import { faFileArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faFileArrowUp, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import $ from 'jquery';
 import { Button, Label } from 'reactstrap';
+import { useNavigate } from 'react-router-dom';
 
 const GameController = () => {
 
@@ -10,7 +11,8 @@ const GameController = () => {
   const [globalIndex, setGlobalIndex] = useState(0);
   const [gameIcon, setGameIcon] = useState({});
   const [rankedArrayImg, setRankedsArrayImg] = useState({})
-
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   function gameIconHandler(e) {
     if (e.target.files[0]) {
@@ -35,7 +37,7 @@ const GameController = () => {
       }
       let rankedIcon = {};
       var reader = new FileReader();
-      reader.readAsDataURL(gameIcon.blob);
+      reader.readAsDataURL(e.target.files[0]);
       reader.onloadend = function () {
 
         var base64data = reader.result;
@@ -95,14 +97,15 @@ const GameController = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     });
+    const responseJson = await response.json();
+    console.log(responseJson);
 
-    const respJson = await response.json();
-
-    console.log(respJson);
-
+    setLoading(false);
+    window.location.reload(false);
   }
 
   function handleGameForm(e) {
+    setLoading(true);
     e.preventDefault();
     const gameName = $("#game-name").val();
     const gameDeveloper = $("#game-developers").val();
@@ -125,12 +128,15 @@ const GameController = () => {
       let ranking = [];
       let index = 0;
       $('.individual-ranked').each(function () {
-        const ranked = {}
-        ranked.name= $(this).children("input").val();
-        ranked.image = rankedArrayImg[index].multimedia;
-        ranked.index = index;
-        ranking.push(ranked);
-        index++;
+        if (rankedArrayImg[index]) {
+          const ranked = {}
+          ranked.name = $(this).children("input").val();
+          ranked.image = rankedArrayImg[index].multimedia;
+          ranked.index = index;
+          ranking.push(ranked);
+          index++;
+        }
+
       });
       console.log(ranking);
       saveGame(gameName, gameDeveloper, gameIconMultimedia, ranking);
@@ -140,6 +146,11 @@ const GameController = () => {
 
   return (
     <>
+      {loading && (
+        <div className='loading-modal'>
+          <FontAwesomeIcon icon={faSpinner} />
+        </div>
+      )}
       <div className='game-controller'>
         <form className='add-game-form' onSubmit={(e) => handleGameForm(e)}>
           {gameIcon.url && (<img className='game-icon left' src={gameIcon.url} alt='img' />)}
@@ -168,7 +179,7 @@ const GameController = () => {
 
               <div className='individual-ranked' key={index}>
                 <Button className='btn btn-sm btn-danger' type="button" onClick={() => deleteModule(idModule)}>x</Button>
-                <input type='text' required placeholder='Nombre de ranked' />
+                <input type='text' id={"text" + idModule} required placeholder='Nombre de ranked' />
                 <br></br>
                 <Label for={"fileRanked" + idModule}>Ranked icon<FontAwesomeIcon icon={faFileArrowUp} /></Label>
                 <input type='file' id={"fileRanked" + idModule} required accept='.jpeg, .jpg, .png, .bmp' onChange={(e) => rankedIconHandler(e, idModule)} />

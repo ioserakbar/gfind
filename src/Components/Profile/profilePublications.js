@@ -22,7 +22,7 @@ export function ProfilePublication(props) {
       setUserID(props.owner);
       const response = await fetch(`http://localhost:3001/api/v1/publication/user/${userID}`);
       const respJson = await response.json();
-      console.log(respJson);
+      
       if (respJson.success) {
         setState(true);
         setIsMine(props.isMine);

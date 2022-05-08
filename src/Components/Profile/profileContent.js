@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Row } from 'reactstrap';
 import { ProfileFriendsPlaceholder } from './profileFriendsPlaceholder';
-import { ProfileGamesPlaceholder } from './gamesFragment/gamesPlaceholder';
 import { Plays } from './playsFragment/playFragment';
 import { ProfilePublication } from './profilePublications';
 import { GamesFragment } from './gamesFragment/gamesFragment';
@@ -15,6 +14,7 @@ export class ProfileContent extends React.Component {
       mode: 'publication',
       isMine: false,
       userID: '',
+      games: []
     };
   }
 
@@ -22,8 +22,9 @@ export class ProfileContent extends React.Component {
     if (this.props.userID) {
       await this.setState({
         userID: this.props.userID,
-        isMine: this.props.isMine
-      })
+        isMine: this.props.isMine,
+        games: this.props.games
+      });
     }
   }
 
@@ -32,7 +33,6 @@ export class ProfileContent extends React.Component {
       mode: pmode
     });
   }
-
 
   render() {
 
@@ -46,13 +46,13 @@ export class ProfileContent extends React.Component {
     else if (this.state.mode === 'plays')
       content = (
         <>
-          <Plays isMine={this.state.isMine} profileUser={this.state.userID}/>
+          <Plays isMine={this.state.isMine} profileUser={this.state.userID} />
         </>
       );
     else if (this.state.mode === 'games')
       content = (
         <>
-          <GamesFragment />
+          <GamesFragment isMine={this.state.isMine} userID={this.state.userID} games={this.state.games} />
         </>
       );
     else if (this.state.mode === 'friends')
@@ -80,5 +80,4 @@ export class ProfileContent extends React.Component {
       </>
     );
   }
-
 }
