@@ -22,8 +22,8 @@ function Profile(props) {
   const [country, setCountry] = useState('');
   const [gotInfo, setGotInfo] = useState(false);
   const [games, setGames] = useState([]);
-
-
+  const [friends, setFriends] = useState([])
+  const [isFriend, setIsFriends] = useState(false);
   useEffect(() => {
 
     async function getUser() {
@@ -42,7 +42,14 @@ function Profile(props) {
           if (userSessionID === userProfileID) {
             setIsMine(true)
           }
+          console.log('friendForEach start')
 
+          respJson.Data.friends.forEach(friend => {
+            console.log('result', friend.user === userSessionID)
+
+            if (friend.user === userSessionID)
+              setIsFriends(true);
+          })
           setUserID(userSessionID);
           setProfileImage(respJson.Data.profilePic);
           setName(respJson.Data.name);
@@ -51,11 +58,12 @@ function Profile(props) {
           setCountry(respJson.Data.countryID);
           setAge(respJson.Data.age);
           setGames(respJson.Data.favoriteGames);
+          setFriends(respJson.Data.friends);
           setState(true);
         }
 
         setGotInfo(true);
-        
+
       }
 
     }
@@ -67,10 +75,20 @@ function Profile(props) {
     state ? (
       <>
         <Container className='profile'>
-          <ProfileHeader profilePic={profileImage} backgroundPic={backgroundPic} name={name} description={description} isMine={isMine} country={country} age={age} />
+          <ProfileHeader
+            profilePic={profileImage}
+            backgroundPic={backgroundPic}
+            name={name} description={description}
+            isMine={isMine}
+            country={country}
+            age={age}
+            userProfileID={userProfileID}
+            userID={userID}
+            isFriend={isFriend}
+          />
           <Label className='bottom-line-profile-true' />
-          <ProfileContent userID={userProfileID}  isMine={isMine} games={games}/>
-        </Container> 
+          <ProfileContent userID={userProfileID} isMine={isMine} games={games} friends={friends} />
+        </Container>
       </>
     ) : (
       <>

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Col, Container, Label, Row } from 'reactstrap';
 
-export class ProfileFriendsPlaceholder extends React.Component {
+export class FriendsPlaceholder extends React.Component {
 
   render() {
 

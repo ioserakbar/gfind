@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardBody, CardHeader, Container, Label } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileUpload, faSpinner, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
@@ -11,8 +11,8 @@ export const PlaysFormsModal = (props) => {
   const [multimediaJson, setMultimediaJson] = useState({});
   const [base64Multimedia, setBase64Multimedia] = useState({});
   const [loading, setLoading] = useState(false);
-
-
+  
+  
   const imageHandleChange = (e) => {
     if (e.target.files) {
 
@@ -39,6 +39,24 @@ export const PlaysFormsModal = (props) => {
       alert('No se pudo cargar el archivo deseado, por favor intente de nuevo');
     }
   }
+
+  useEffect(() => {
+    async function fillSelect(){
+       
+      const response = await fetch(`http://localhost:3001/api/v1/game`);
+      const respJson = await response.json();
+      $("#game").html('');
+      respJson.Data.forEach(element => {
+
+        $("#game").append(
+          `<option value='${element._id}'>${element.name} (${element.developers})</option>`
+        );
+
+      });
+    }
+    fillSelect();
+  }, [])
+  
 
   async function publicate(e) {
 
@@ -163,9 +181,6 @@ export const PlaysFormsModal = (props) => {
                 </div>
                 <div className='game-select'>
                   <select id='game'>
-                    <option value='gameID1'>Lol</option>
-                    <option value='gameID2'>Fortnite</option>
-                    <option value='gameID3'>Super Smash Bros Brawl</option>
                   </select>
                 </div>
                 <div className='publication-multimedia-modal'>

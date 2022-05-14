@@ -55,7 +55,6 @@ export class HomePage extends React.Component {
         <Container>
           <Row className='Publications'>
             <Col md={3} >
-              <SideMenuHome />
             </Col>
 
             {this.state.status ? (

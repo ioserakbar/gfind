@@ -10,7 +10,7 @@ export class PlayModal extends React.Component {
       status: false,
       src: '',
       content: '',
-      game: ''
+      game: '',
     };
   }
 
@@ -36,7 +36,7 @@ export class PlayModal extends React.Component {
           <Container className='plays-modal-container'>
             <Card>
               <CardHeader className='header'>
-                <img src={require('../../../Resources/Imgs/Icons/lol.icon.png')} alt='Game-icon' />
+                <img src={this.state.game} alt='Game-icon' />
                 <Label> Jugada </Label>
                 <FontAwesomeIcon icon={faTimesCircle} onClick={() => this.props.closeCallback(false)} />
               </CardHeader> 

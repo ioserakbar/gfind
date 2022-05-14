@@ -26,7 +26,25 @@ export const Plays = (props) => {
       const respJson = await response.json();
 
       if (respJson.success) {
-        setPlays(respJson.Data);
+
+        let arrayToPush = [];
+
+        respJson.Data.forEach(async function (element){
+          
+          const response2 = await fetch(`http://localhost:3001/api/v1/game/${element.gameID}`);
+          const respJson2 = await response2.json();
+          
+          let obj = {};
+          obj.video = element.multimedia.path;
+          obj.gameIcon = respJson2.Data.image.path  
+          obj.content = element.content
+
+
+          arrayToPush.push(obj);
+
+        });
+
+        setPlays(arrayToPush);
       }
     }
 
@@ -56,14 +74,18 @@ export const Plays = (props) => {
     setPlayModal(true);
   }
 
+  function addPlay(pla){
+    
+  }
+
   return (
     state ? (
       <>
         {playFormModal && (
-          <PlaysFormsModal closeCallback={playsFormModal} />
+          <PlaysFormsModal closeCallback={playsFormModal} addPlay={addPlay}/>
         )}
         {playModal && (
-          <PlayModal closeCallback={playsModal} src={modalSrc} content={modalContent} game={modalGame}/>
+          <PlayModal closeCallback={playsModal} src={modalSrc} content={modalContent} game={modalGame}  />
         )}
         <div className='profile-publications'>
           {isMine && (
@@ -75,8 +97,9 @@ export const Plays = (props) => {
           )}
           <Container className='plays-container'>
             {plays.map((play, index) => (
-              <Container className='play' key={index} onClick={() => openPlayModal(play.multimedia.path, play.gameID, play.content)}>
-                <video src={play.multimedia.path} autoPlay muted />
+              <Container className='play' key={index} onClick={() => openPlayModal(play.video, play.gameIcon, play.content)}>
+                <img src={play.gameIcon} alt='imgIcon'/>
+                <video src={play.video} autoPlay muted />
               </Container>
             ))}
           </Container>

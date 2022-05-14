@@ -12,27 +12,9 @@ export const SideBarMain = [
     cName: 'nav-sidetext'
   },
   {
-    title: 'Perfil',
-    path: '/Profile',
-    icon: <FontAwesomeIcon icon={faUser} />,
-    cName: 'nav-sidetext'
-  },
-  {
-    title: 'Usuarios',
-    path: '/users',
-    icon: <FontAwesomeIcon icon={faUser} />,
-    cName: 'nav-sidetext'
-  },
-  {
     title: 'Mensajes',
     path: '/Chat',
     icon: <FontAwesomeIcon icon={faMessage} />,
-    cName: 'nav-sidetext'
-  },
-  {
-    title: 'Amigos',
-    path: '/Friends',
-    icon: <FontAwesomeIcon icon={faUserGroup} />,
     cName: 'nav-sidetext'
   }
 

@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Label, Row } from 'reactstrap';
 import { PublicationPlaceholder } from '../Publicacion/publicationPlaceholder';
-import { ProfileFriendsPlaceholder } from './profileFriendsPlaceholder';
-import { GamesPlaceholder, ProfileGamesPlaceholder } from './gamesFragment/gamesPlaceholder';
+import { FriendFragment } from './firendFragment/friendsFragment';
+import { GamesPlaceholder } from './gamesFragment/gamesPlaceholder';
 import { PlaysPlaceholder } from './playsFragment/playsPlaceholder';
 
 class ProfilePlaceholder extends React.Component {
@@ -51,7 +51,7 @@ class ProfilePlaceholder extends React.Component {
     else if (this.state.mode === 'friends')
       content = (
         <>
-          <ProfileFriendsPlaceholder />
+          <FriendFragment />
         </>
       );
     else

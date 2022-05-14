@@ -127,6 +127,7 @@ const GameController = () => {
 
       let ranking = [];
       let index = 0;
+      
       $('.individual-ranked').each(function () {
         if (rankedArrayImg[index]) {
           const ranked = {}
@@ -179,7 +180,7 @@ const GameController = () => {
 
               <div className='individual-ranked' key={index}>
                 <Button className='btn btn-sm btn-danger' type="button" onClick={() => deleteModule(idModule)}>x</Button>
-                <input type='text' id={"text" + idModule} required placeholder='Nombre de ranked' />
+                <input type='text' id={"text" + idModule}  placeholder='Nombre de ranked' />
                 <br></br>
                 <Label for={"fileRanked" + idModule}>Ranked icon<FontAwesomeIcon icon={faFileArrowUp} /></Label>
                 <input type='file' id={"fileRanked" + idModule} required accept='.jpeg, .jpg, .png, .bmp' onChange={(e) => rankedIconHandler(e, idModule)} />

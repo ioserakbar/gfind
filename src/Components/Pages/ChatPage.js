@@ -1,21 +1,15 @@
 import React from 'react';
+import { ChatBox } from '../Chat/chat';
+import { ChatSideBar } from '../Chat/side bar/chatSideBar';
 
-export class ChatPage extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      someKey: 'someValue'
-    };
-  }
+export const ChatPage = () => {
 
-  render() {
-    return <p>MESSAGES TODO</p>;
-  }
+  return (
+    <div className='chat'>
+      <ChatSideBar />
+      <ChatBox />
+    </div>
+  );
 
-  componentDidMount() {
-    this.setState({
-      someKey: 'otherValue'
-    });
-  }
 }
 

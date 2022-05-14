@@ -2,12 +2,13 @@ import { faCaretSquareDown, faFilm, faGamepad, faUserFriends } from '@fortawesom
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Row } from 'reactstrap';
-import { ProfileFriendsPlaceholder } from './profileFriendsPlaceholder';
 import { Plays } from './playsFragment/playFragment';
 import { ProfilePublication } from './profilePublications';
 import { GamesFragment } from './gamesFragment/gamesFragment';
+import { FriendFragment } from './firendFragment/friendsFragment';
 
 export class ProfileContent extends React.Component {
+
   constructor() {
     super();
     this.state = {
@@ -23,7 +24,8 @@ export class ProfileContent extends React.Component {
       await this.setState({
         userID: this.props.userID,
         isMine: this.props.isMine,
-        games: this.props.games
+        games: this.props.games,
+        friends: this.props.friends
       });
     }
   }
@@ -58,7 +60,7 @@ export class ProfileContent extends React.Component {
     else if (this.state.mode === 'friends')
       content = (
         <>
-          <ProfileFriendsPlaceholder />
+          <FriendFragment friends={this.state.friends} isMine={this.state.isMine} userID={this.state.userID}/>
         </>
       );
     else

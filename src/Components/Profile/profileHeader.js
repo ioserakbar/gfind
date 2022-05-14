@@ -1,8 +1,10 @@
-import { faEllipsisH, faMessage, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisH, faMessage, faUserMinus, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Label, Row } from 'reactstrap';
+import Cookies from 'universal-cookie';
+import constants from '../../constants.json';
 
 export const ProfileHeader = (props) => {
 
@@ -11,7 +13,11 @@ export const ProfileHeader = (props) => {
   const [countryName, setCountryName] = useState('');
   const [gotCountry, setGotCountry] = useState(false);
   const [drop, setDrop] = useState(false);
-  const [isFriend, setIsFriend] = useState(false)
+  const [isFriend, setIsFriend] = useState(props.isFriend);
+  const userID = props.userID;
+  const isMine = props.isMine;
+  const userProfileID = props.userProfileID;
+  const [isLogedIn, setIsLogedIn] = useState(false);
 
   useEffect(() => {
     async function getCountry() {
@@ -28,8 +34,48 @@ export const ProfileHeader = (props) => {
     getCountry();
   });
 
+  useEffect(() => {
+
+    const cookie = new Cookies();
+    const isLogedIn = cookie.get(constants.CookieIsLogedIn);
+    setIsLogedIn(isLogedIn);
+
+  }, []);
   const toggleDrop = () => {
     setDrop(!drop);
+  }
+
+  async function addFriend() {
+    var today = new Date().toISOString();
+    const body = {
+      userToFriend: userProfileID,
+      date: today
+    }
+
+    const response = await fetch(`http://localhost:3001/api/v1/user/${userID}/addFriend/`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    const respJson = await response.json();
+    if (respJson.success)
+      setIsFriend(true)
+  }
+
+  async function removeFriend() {
+
+    const body = {
+      userToUnfriend: userProfileID
+    }
+
+    const response = await fetch(`http://localhost:3001/api/v1/user/${userID}/removeFriend/`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    const respJson = await response.json();
+    if (respJson.success)
+      setIsFriend(false)
   }
 
   return (
@@ -45,7 +91,7 @@ export const ProfileHeader = (props) => {
         <Row className='header'>
           <Label className='name-options'>
             <Label className='name'>{props.name}</Label>
-            {props.isMine && (
+            {isMine && (
               <>
                 <Dropdown isOpen={drop} toggle={toggleDrop} className='options'>
                   <DropdownToggle className='toggle'>
@@ -62,17 +108,21 @@ export const ProfileHeader = (props) => {
                 </Dropdown>
               </>
             )}
-
           </Label>
           <Label className='info'>
-            {!props.isMine && (
+            {!isMine && isLogedIn && (
               <Label className='message'>
                 <FontAwesomeIcon icon={faMessage} />
               </Label>
             )}
-            {!props.isFriend && !props.isMine && (
+            {!isFriend && !isMine && isLogedIn && (
               <Label className='friend'>
-                <FontAwesomeIcon icon={faUserPlus} />
+                <FontAwesomeIcon icon={faUserPlus} onClick={() => addFriend()} />
+              </Label>
+            )}
+            {isFriend && !isMine && isLogedIn && (
+              <Label className='friend'>
+                <FontAwesomeIcon icon={faUserMinus} onClick={() => removeFriend()} />
               </Label>
             )}
             <Label className='age'>{props.age} años</Label>
