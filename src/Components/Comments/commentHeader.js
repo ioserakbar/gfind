@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Label, Row } from 'reactstrap';
-
+import Cookies from 'universal-cookie';
+import constants from '../../constants.json'
 export class CommentHeader extends React.Component {
   constructor(props) {
     super(props);
@@ -13,8 +14,11 @@ export class CommentHeader extends React.Component {
   async componentDidMount() {
 
     if (this.props.userID) {
-
-      const response = await fetch(`http://localhost:3001/api/v1/user/${this.props.userID}`);
+      const cookie = new Cookies();
+      const accessToken = cookie.get(constants.CookieAccessToken);
+      const response = await fetch(`http://localhost:3001/api/v1/user/${this.props.userID}`, {
+        headers: { 'authorization': `Bearer ${accessToken}` },
+      });
       const respJson = await response.json();
 
       var date = new Date(this.props.date);

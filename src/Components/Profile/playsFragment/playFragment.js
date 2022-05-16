@@ -3,6 +3,8 @@ import { Button, Col, Container, Row } from 'reactstrap';
 import { PlayModal } from './playModal';
 import { PlaysFormsModal } from './playsFormModal';
 import { PlaysPlaceholder } from './playsPlaceholder';
+import constants from '../../../constants.json'
+import Cookies from 'universal-cookie';
 
 export const Plays = (props) => {
 
@@ -21,22 +23,27 @@ export const Plays = (props) => {
   useEffect(() => {
 
     async function getPlays(pProfileUser) {
-
-      const response = await fetch(`http://localhost:3001/api/v1/videoPlay/user/${pProfileUser}`);
+      const cookie = new Cookies();
+      const accessToken = cookie.get(constants.CookieAccessToken);
+      const response = await fetch(`http://localhost:3001/api/v1/videoPlay/user/${pProfileUser}`, {
+        headers: { 'authorization': `Bearer ${accessToken}` },
+      });
       const respJson = await response.json();
 
       if (respJson.success) {
 
         let arrayToPush = [];
 
-        respJson.Data.forEach(async function (element){
-          
-          const response2 = await fetch(`http://localhost:3001/api/v1/game/${element.gameID}`);
+        respJson.Data.forEach(async function (element) {
+
+          const response2 = await fetch(`http://localhost:3001/api/v1/game/${element.gameID}`, {
+            headers: { 'authorization': `Bearer ${accessToken}` },
+          });
           const respJson2 = await response2.json();
-          
+
           let obj = {};
           obj.video = element.multimedia.path;
-          obj.gameIcon = respJson2.Data.image.path  
+          obj.gameIcon = respJson2.Data.image.path
           obj.content = element.content
 
 
@@ -74,18 +81,18 @@ export const Plays = (props) => {
     setPlayModal(true);
   }
 
-  function addPlay(pla){
-    
+  function addPlay(pla) {
+
   }
 
   return (
     state ? (
       <>
         {playFormModal && (
-          <PlaysFormsModal closeCallback={playsFormModal} addPlay={addPlay}/>
+          <PlaysFormsModal closeCallback={playsFormModal} addPlay={addPlay} />
         )}
         {playModal && (
-          <PlayModal closeCallback={playsModal} src={modalSrc} content={modalContent} game={modalGame}  />
+          <PlayModal closeCallback={playsModal} src={modalSrc} content={modalContent} game={modalGame} />
         )}
         <div className='profile-publications'>
           {isMine && (
@@ -98,7 +105,7 @@ export const Plays = (props) => {
           <Container className='plays-container'>
             {plays.map((play, index) => (
               <Container className='play' key={index} onClick={() => openPlayModal(play.video, play.gameIcon, play.content)}>
-                <img src={play.gameIcon} alt='imgIcon'/>
+                <img src={play.gameIcon} alt='imgIcon' />
                 <video src={play.video} autoPlay muted />
               </Container>
             ))}

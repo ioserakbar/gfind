@@ -1,10 +1,11 @@
+import constants from '../../constants.json';
 import React from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
+import Cookies from 'universal-cookie';
 import { SrcModal } from '../../Resources/srcModal';
 import { Publication } from '../Publicacion/publication';
 import { PublicationFormsModal } from '../Publicacion/publicationFormsModal';
 import { PublicationPlaceholder } from '../Publicacion/publicationPlaceholder';
-import { SideMenuHome } from '../SideMenuHome/sideMenuHome';
 
 
 export class HomePage extends React.Component {
@@ -23,8 +24,13 @@ export class HomePage extends React.Component {
 
   async componentDidMount() {
 
-    const response = await fetch(`http://localhost:3001/api/v1/publication/`)
+    const cookie = new Cookies();
+    const accessToken = cookie.get(constants.CookieAccessToken);
+    const response = await fetch(`http://localhost:3001/api/v1/publication/`,{
+      headers: { 'authorization': `Bearer ${accessToken}` },
+    })
     const respJson = await response.json();
+    
     if (respJson.success) {
       this.setState({
         status: true,

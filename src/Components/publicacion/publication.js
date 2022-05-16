@@ -5,6 +5,8 @@ import { PublicationHeader } from './publicationHeader';
 import { PublicationFooter } from './publicationFooter';
 import { CommentsModal } from '../Comments/commentsModal';
 import { CommentFormsModal } from '../Comments/commentFormModal';
+import constants from '../../constants.json'
+import Cookies from 'universal-cookie';
 
 export class Publication extends Component {
   constructor(props) {
@@ -22,8 +24,11 @@ export class Publication extends Component {
 
     if (this.props.dataPub) {
 
-      
-      const response = await fetch(`http://localhost:3001/api/v1/user/${this.props.dataPub.userID}`);
+      const cookie = new Cookies();
+      const accessToken = cookie.get(constants.CookieAccessToken);
+      const response = await fetch(`http://localhost:3001/api/v1/user/${this.props.dataPub.userID}`, {
+        headers: { 'authorization': `Bearer ${accessToken}` },
+      });
       const respJson = await response.json();
 
       if (respJson.success) {
@@ -35,7 +40,7 @@ export class Publication extends Component {
       }
 
       this.forceUpdate();
-    } 
+    }
   }
 
   srcCallback = (pState, pSrc, pType) => {
@@ -76,10 +81,10 @@ export class Publication extends Component {
                 multimedia={multimedia}
                 content={content}
                 srcCallback={this.srcCallback}
-              /> 
+              />
             </CardBody>
             <CardFooter className='publication-footer'>
-              <PublicationFooter openComments={() => this.commentsModal(true)} stats={stats} pubID={_id} openFormComment={this.commentsFormModal}/>
+              <PublicationFooter openComments={() => this.commentsModal(true)} stats={stats} pubID={_id} openFormComment={this.commentsFormModal} />
             </CardFooter>
           </Card>
         </>

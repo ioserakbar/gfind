@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import $ from 'jquery';
 import { useNavigate } from 'react-router-dom';
+import constants from '../../../constants.json'
+import Cookies from 'universal-cookie';
 
 export const GameFormsModal = (props) => {
 
@@ -16,7 +18,12 @@ export const GameFormsModal = (props) => {
   async function onChangeGameHandler() {
 
     const gameID = $("#game option:selected").attr('value');
-    const response = await fetch(`http://localhost:3001/api/v1/game/${gameID}`);
+    const cookie = new Cookies();
+    const accessToken = cookie.get(constants.CookieAccessToken);
+    const response = await fetch(`http://localhost:3001/api/v1/game/${gameID}`, {
+      headers: { 'authorization': `Bearer ${accessToken}` },
+
+    });
     const respJson = await response.json();
 
     respJson.Data.ranking.sort((a, b) => {
@@ -42,8 +49,11 @@ export const GameFormsModal = (props) => {
   }, [games])
 
   async function fillSelects() {
-
-    const response = await fetch(`http://localhost:3001/api/v1/game`);
+    const cookie = new Cookies();
+    const accessToken = cookie.get(constants.CookieAccessToken);
+    const response = await fetch(`http://localhost:3001/api/v1/game`, {
+      headers: { 'authorization': `Bearer ${accessToken}` },
+    });
     const respJson = await response.json();
     $("#game").html('');
     $("#ranked").html('')
@@ -95,9 +105,14 @@ export const GameFormsModal = (props) => {
       gameID: gameID,
       ranked: rankedIndex
     }
+    const cookie = new Cookies();
+    const accessToken = cookie.get(constants.CookieAccessToken);
     const response = await fetch(`http://localhost:3001/api/v1/user/${userID}/addGame/`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${accessToken}`
+      },
       body: JSON.stringify(body)
     });
     const respJson = await response.json();

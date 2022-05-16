@@ -6,6 +6,7 @@ import constants from '../../constants.json';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
+
 class CommentFooter extends React.Component {
   constructor(props) {
     super(props);
@@ -39,10 +40,14 @@ class CommentFooter extends React.Component {
       statOption: stat,
       userID: userID
     }
-
+    const cookie = new Cookies();
+    const accessToken = cookie.get(constants.CookieAccessToken);
     const response = await fetch(`http://localhost:3001/api/v1/comment/${this.state.commentID}/statsChange`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${accessToken}`
+      },
       body: JSON.stringify(body)
     });
     const respJson = await response.json()

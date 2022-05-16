@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Label, Row } from 'reactstrap';
 import { GameFormsModal } from './gamesFormModal';
 import { GamesPlaceholder } from './gamesPlaceholder';
+import constants from '../../../constants.json'
+import Cookies from 'universal-cookie';
 
 export const GamesFragment = (props) => {
 
@@ -12,7 +14,7 @@ export const GamesFragment = (props) => {
   const [gameFormModal, setGameFormModal] = useState(false);
   const [gameArray, setGameArray] = useState([]);
   const isMine = props.isMine;
-  const userID = props.userID;
+  const userID = props.userID; 
   const [games, setGames] = useState(props.games);
 
   useEffect(() => {
@@ -37,7 +39,11 @@ export const GamesFragment = (props) => {
     let array = [];
     games.forEach(async (game) => {
       let obj = {};
-      const response = await fetch(`http://localhost:3001/api/v1/game/${game.gameID}`);
+      const cookie = new Cookies();
+      const accessToken = cookie.get(constants.CookieAccessToken);
+      const response = await fetch(`http://localhost:3001/api/v1/game/${game.gameID}`, {
+        headers: { 'authorization': `Bearer ${accessToken}` },
+      });
       const respJson = await response.json();
       if (respJson.success) {
         obj.gameName = respJson.Data.name;
@@ -65,9 +71,14 @@ export const GamesFragment = (props) => {
     const body = {
       gameToRemove: gameID
     }
+    const cookie = new Cookies();
+    const accessToken = cookie.get(constants.CookieAccessToken);
     const response = await fetch(`http://localhost:3001/api/v1/user/${userID}/removeGame/`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${accessToken}`
+      },
       body: JSON.stringify(body)
     });
     const respJson = await response.json();
@@ -79,7 +90,7 @@ export const GamesFragment = (props) => {
     state ? (
       <>
         {gameFormModal && (
-          <GameFormsModal closeCallback={() => gameForm()} userID={userID} games={games} refreshGames={refreshGames}/>
+          <GameFormsModal closeCallback={() => gameForm()} userID={userID} games={games} refreshGames={refreshGames} />
         )}
         <div className='profile-publications'>
           {isMine && (

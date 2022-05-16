@@ -81,10 +81,14 @@ export class PublicationFooter extends React.Component {
       statOption: stat,
       userID: userID
     }
-
+    const cookie = new Cookies();
+    const accessToken = cookie.get(constants.CookieAccessToken);
     const response = await fetch(`http://localhost:3001/api/v1/publication/${this.state.pubID}/statsChange`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${accessToken}`
+      },
       body: JSON.stringify(body)
     });
     const respJson = await response.json()
@@ -140,10 +144,14 @@ export class PublicationFooter extends React.Component {
       content: contentVal,
       date: today
     }
-
+    const cookie = new Cookies();
+    const accessToken = cookie.get(constants.CookieAccessToken);
     const response = await fetch(`http://localhost:3001/api/v1/comment/`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${accessToken}`
+      },
       body: JSON.stringify(body)
     });
 
@@ -162,7 +170,7 @@ export class PublicationFooter extends React.Component {
         </Col>
         <Col md={3} className="publication-footer-sendbtns" >
           <Button onClick={(e) => this.uploadTextComment(e)}>Enviar</Button>
-          <FontAwesomeIcon icon={faFileUpload}  onClick={() => this.props.openFormComment(true)} />
+          <FontAwesomeIcon icon={faFileUpload} onClick={() => this.props.openFormComment(true)} />
           <FontAwesomeIcon icon={faEye} onClick={() => this.props.openComments(true)} />
         </Col>
         <Col md={3} className="publication-footer-likes">

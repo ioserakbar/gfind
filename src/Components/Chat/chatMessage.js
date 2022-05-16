@@ -5,6 +5,9 @@ export const ChatMessage = (props) => {
 
   const isMine = props.isMine;
   const hasDate = props.hasDate;
+  const date = props.date;
+  const content = props.content;
+
 
   return (
     isMine ? (
@@ -13,12 +16,11 @@ export const ChatMessage = (props) => {
           <div className='message mine'>
             {hasDate && (
               <div className='date'>
-                <Label>20/05/2022</Label>
+                <Label>{date}</Label>
               </div>
             )}
-
             <div className='message-content'>
-              <Label>es mio</Label>
+              <Label>{content}</Label>
             </div>
           </div>
         </div>
@@ -29,11 +31,11 @@ export const ChatMessage = (props) => {
           <div className='message not-mine'>
             {hasDate && (
               <div className='date'>
-                <Label>20/05/2022 - tu mama en </Label>
+                <Label>{date}</Label>
               </div>
             )}
             <div className='message-content'>
-              <Label>Hola</Label>
+              <Label>{content}</Label>
             </div>
           </div>
         </div>

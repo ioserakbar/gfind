@@ -45,6 +45,7 @@ export class App extends React.Component {
             <Route exact path='/users' element={<UsersPage />}></Route>
             <Route exact path='/' element={<AboutUsPage />}></Route>
             <Route exact path='/Friends' element={<FriendsPage />}></Route>
+            <Route exact path='/Chat/:chatID' element={<ChatPage />}></Route>
             <Route exact path='/Chat' element={<ChatPage />}></Route>
             <Route exact path='/CreateAccount' element={<CreateAccountPage />}></Route>
             <Route exact path='/LogIn' element={<LogInPage />}></Route>

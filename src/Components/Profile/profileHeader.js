@@ -2,6 +2,7 @@ import { faEllipsisH, faMessage, faUserMinus, faUserPlus } from '@fortawesome/fr
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import ReactCountryFlag from 'react-country-flag';
+import { useNavigate } from 'react-router-dom';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Label, Row } from 'reactstrap';
 import Cookies from 'universal-cookie';
 import constants from '../../constants.json';
@@ -18,6 +19,7 @@ export const ProfileHeader = (props) => {
   const isMine = props.isMine;
   const userProfileID = props.userProfileID;
   const [isLogedIn, setIsLogedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getCountry() {
@@ -51,10 +53,14 @@ export const ProfileHeader = (props) => {
       userToFriend: userProfileID,
       date: today
     }
-
+    const cookie = new Cookies();
+    const accessToken = cookie.get(constants.CookieAccessToken);
     const response = await fetch(`http://localhost:3001/api/v1/user/${userID}/addFriend/`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${accessToken}`
+      },
       body: JSON.stringify(body)
     });
     const respJson = await response.json();
@@ -67,15 +73,52 @@ export const ProfileHeader = (props) => {
     const body = {
       userToUnfriend: userProfileID
     }
-
+    const cookie = new Cookies();
+    const accessToken = cookie.get(constants.CookieAccessToken);
     const response = await fetch(`http://localhost:3001/api/v1/user/${userID}/removeFriend/`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${accessToken}`
+      },
       body: JSON.stringify(body)
     });
     const respJson = await response.json();
     if (respJson.success)
       setIsFriend(false)
+  }
+
+
+  async function createChatRoom() {
+
+
+    if (!isLogedIn) {
+      alert('Es necesario iniciar sesion');
+      return;
+    }
+
+    const cookie = new Cookies();
+    const logedUserID = cookie.get(constants.CookieUserID);
+
+    const body = {
+      userOne: userProfileID,
+      userTwo: logedUserID
+    }
+    const accessToken = cookie.get(constants.CookieAccessToken);
+    const response = await fetch(`http://localhost:3001/api/v1/chatroom`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${accessToken}`
+      },
+      body: JSON.stringify(body)
+    });
+
+    const respJson = await response.json();
+    console.log('create chatroom', respJson);
+
+    navigate(`/chat/${respJson.Data['_id']}`);
+
   }
 
   return (
@@ -102,8 +145,6 @@ export const ProfileHeader = (props) => {
                     <DropdownItem >Editar foto de fondo</DropdownItem>
                     <DropdownItem >Editar foto de perfil</DropdownItem>
                     <DropdownItem >Editar descripcion</DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem disabled>Editar informacion</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
               </>
@@ -112,7 +153,7 @@ export const ProfileHeader = (props) => {
           <Label className='info'>
             {!isMine && isLogedIn && (
               <Label className='message'>
-                <FontAwesomeIcon icon={faMessage} />
+                <FontAwesomeIcon icon={faMessage} onClick={() => createChatRoom()} />
               </Label>
             )}
             {!isFriend && !isMine && isLogedIn && (

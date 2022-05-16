@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Label, Row } from 'reactstrap';
 import { FriendSearchModal } from './friendSearchModal';
 import { FriendsPlaceholder } from './friendsPlaceholder';
+import constants from '../../../constants.json'
+import Cookies from 'universal-cookie';
 
 export const FriendFragment = (props) => {
 
@@ -26,9 +28,12 @@ export const FriendFragment = (props) => {
 
   async function buildArray() {
     let arrayToPush = [];
-
+    const cookie = new Cookies();
+    const accessToken = cookie.get(constants.CookieAccessToken);
     friends.forEach(async function (friend) {
-      const response = await fetch(`http://localhost:3001/api/v1/user/${friend.user}`);
+      const response = await fetch(`http://localhost:3001/api/v1/user/${friend.user}`, {
+        headers: { 'authorization': `Bearer ${accessToken}` },
+      });
       const respJson = await response.json();
       let obj = {};
       const date = new Date(friend.date);
@@ -42,14 +47,18 @@ export const FriendFragment = (props) => {
   }
 
   async function unFriend(user) {
-    
+
     const body = {
       userToUnfriend: user
     }
-
+    const cookie = new Cookies();
+    const accessToken = cookie.get(constants.CookieAccessToken);
     const response = await fetch(`http://localhost:3001/api/v1/user/${userID}/removeFriend/`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${accessToken}`
+      },
       body: JSON.stringify(body)
     });
     const respJson = await response.json();

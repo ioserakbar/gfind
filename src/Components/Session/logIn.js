@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link,  useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import $ from 'jquery';
 import { Button, Input, Label, Row } from 'reactstrap';
 import constants from '../../constants.json'
@@ -14,6 +14,7 @@ export function LogIn() {
   const [loading, setLoading] = useState(false);
 
   const sessionauth = async (e) => {
+
     e.preventDefault();
     const cookies = new Cookies();
 
@@ -33,14 +34,18 @@ export function LogIn() {
       return;
     }
     setLoading(true)
-
-    const response = await fetch(`http://localhost:3001/api/v1/user?e=${emailInput}&p=${passwordInput}`);
+    const cookie = new Cookies();
+    const accessToken = cookie.get(constants.CookieAccessToken);
+    const response = await fetch(`http://localhost:3001/api/v1/user?e=${emailInput}&p=${passwordInput}`, {
+      headers: { 'authorization': `Bearer ${accessToken}` },
+    });
     const respJson = await response.json();
 
     if (respJson.success) {
 
       cookies.set(constants.CookieUserID, respJson.Data[0]._id, { path: '/' })
       cookies.set(constants.CookieIsLogedIn, true, { path: '/' })
+      cookies.set(constants.CookieAccessToken, respJson.AccessToken, { path: '/' })
       navigate('/home');
       return;
 

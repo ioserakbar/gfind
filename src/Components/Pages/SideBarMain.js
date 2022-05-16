@@ -10,12 +10,6 @@ export const SideBarMain = [
     path: '/',
     icon: <FontAwesomeIcon icon={faHome} />,
     cName: 'nav-sidetext'
-  },
-  {
-    title: 'Mensajes',
-    path: '/Chat',
-    icon: <FontAwesomeIcon icon={faMessage} />,
-    cName: 'nav-sidetext'
   }
 
 

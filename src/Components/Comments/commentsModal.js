@@ -4,7 +4,8 @@ import React from 'react';
 import { Card, CardBody, CardHeader, Col, Container, Label, Row } from 'reactstrap';
 import { Comment } from './comment';
 import { CommentPlaceholder } from './commentPlaceholder';
-
+import constants from '../../constants.json'
+import Cookies from 'universal-cookie';
 export class CommentsModal extends React.Component {
 
   constructor(props) {
@@ -20,12 +21,15 @@ export class CommentsModal extends React.Component {
   async componentDidMount() {
 
     if (this.props.pubID) {
-
-      const response = await fetch(`http://localhost:3001/api/v1/comment/publication/${this.props.pubID}`);
+      const cookie = new Cookies();
+      const accessToken = cookie.get(constants.CookieAccessToken);
+      const response = await fetch(`http://localhost:3001/api/v1/comment/publication/${this.props.pubID}`, {
+        headers: { 'authorization': `Bearer ${accessToken}` },
+      });
       const respJson = await response.json();
 
       if (respJson.success) {
-        
+
         await this.setState({
           status: true,
           hasComments: true,

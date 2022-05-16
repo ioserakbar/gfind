@@ -93,10 +93,14 @@ export const CommentFormsModal = (props) => {
 
     if (pMultiArray2)
       body.multimedia = pMultiArray2;
-
+      const cookie = new Cookies();
+      const accessToken = cookie.get(constants.CookieAccessToken);
     const response = await fetch(`http://localhost:3001/api/v1/comment`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${accessToken}`
+      },
       body: JSON.stringify(body)
     });
 
@@ -121,7 +125,7 @@ export const CommentFormsModal = (props) => {
   }
 
   const renderMultimedia = (source) => {
-  
+
     if (source['type'] === 'video/mp4') {
 
       return (

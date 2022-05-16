@@ -24,6 +24,7 @@ function Profile(props) {
   const [games, setGames] = useState([]);
   const [friends, setFriends] = useState([])
   const [isFriend, setIsFriends] = useState(false);
+
   useEffect(() => {
 
     async function getUser() {
@@ -33,8 +34,10 @@ function Profile(props) {
         let userSessionID;
         if (isLogedIn)
           userSessionID = cookie.get(constants.CookieUserID);
-
-        const response = await fetch(`http://localhost:3001/api/v1/user/${userProfileID}`);
+        const accessToken = cookie.get(constants.CookieAccessToken);
+        const response = await fetch(`http://localhost:3001/api/v1/user/${userProfileID}`, {
+          headers: { 'authorization': `Bearer ${accessToken}` },
+        });
         const respJson = await response.json();
 
         if (respJson.success) {

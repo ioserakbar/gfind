@@ -96,7 +96,7 @@ export function CreateAccount() {
     const validName = /^[a-zA-Z ]{1,}$/;
     const validEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    
+
     if (name === '' || email === '' || edad === '' || user === '' || contra === '' || contra2 === '' || country === '') {
       setError('Llene los campos vacios.');
     } else if (contra !== contra2) {
@@ -114,7 +114,7 @@ export function CreateAccount() {
     } else {
 
       setError('');
-      setLoading(true); 
+      setLoading(true);
 
       const img = $('#profile-pic').attr('src');
       const parts = img.split(';')
@@ -139,10 +139,14 @@ export function CreateAccount() {
         "voicechat": voicechat,
         "profilePic": profilePic
       }
-
+      const cookie = new Cookies();
+      const accessToken = cookie.get(constants.CookieAccessToken);
       const response = await fetch(`http://localhost:3001/api/v1/user`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': `Bearer ${accessToken}`
+        },
         body: JSON.stringify(body)
       });
 

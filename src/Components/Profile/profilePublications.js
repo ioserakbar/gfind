@@ -3,7 +3,8 @@ import { Button, Col, Row } from 'reactstrap';
 import { Publication } from '../Publicacion/publication';
 import { PublicationFormsModal } from '../Publicacion/publicationFormsModal';
 import { PublicationPlaceholder } from '../Publicacion/publicationPlaceholder';
-
+import constants from '../../constants.json'
+import Cookies from 'universal-cookie';
 
 export function ProfilePublication(props) {
 
@@ -20,9 +21,13 @@ export function ProfilePublication(props) {
 
 
       setUserID(props.owner);
-      const response = await fetch(`http://localhost:3001/api/v1/publication/user/${userID}`);
+      const cookie = new Cookies();
+      const accessToken = cookie.get(constants.CookieAccessToken);
+      const response = await fetch(`http://localhost:3001/api/v1/publication/user/${userID}`, {
+        headers: { 'authorization': `Bearer ${accessToken}` },
+      });
       const respJson = await response.json();
-      
+
       if (respJson.success) {
         setState(true);
         setIsMine(props.isMine);

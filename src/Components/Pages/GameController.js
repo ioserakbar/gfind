@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import $ from 'jquery';
 import { Button, Label } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
+import constants from '../../constants.json'
+import Cookies from 'universal-cookie';
 
 const GameController = () => {
 
@@ -91,10 +93,14 @@ const GameController = () => {
       image: icon,
       ranking: rankeds
     }
-
+    const cookie = new Cookies();
+    const accessToken = cookie.get(constants.CookieAccessToken);
     const response = await fetch(`http://localhost:3001/api/v1/game`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${accessToken}`
+      },
       body: JSON.stringify(body)
     });
     const responseJson = await response.json();
@@ -127,7 +133,7 @@ const GameController = () => {
 
       let ranking = [];
       let index = 0;
-      
+
       $('.individual-ranked').each(function () {
         if (rankedArrayImg[index]) {
           const ranked = {}
@@ -180,7 +186,7 @@ const GameController = () => {
 
               <div className='individual-ranked' key={index}>
                 <Button className='btn btn-sm btn-danger' type="button" onClick={() => deleteModule(idModule)}>x</Button>
-                <input type='text' id={"text" + idModule}  placeholder='Nombre de ranked' />
+                <input type='text' id={"text" + idModule} placeholder='Nombre de ranked' />
                 <br></br>
                 <Label for={"fileRanked" + idModule}>Ranked icon<FontAwesomeIcon icon={faFileArrowUp} /></Label>
                 <input type='file' id={"fileRanked" + idModule} required accept='.jpeg, .jpg, .png, .bmp' onChange={(e) => rankedIconHandler(e, idModule)} />
